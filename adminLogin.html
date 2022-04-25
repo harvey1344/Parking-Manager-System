@@ -1,0 +1,45 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script src= "wp.js" defer></script>
+    <title>Admin Login</title>
+</head>
+
+<body>
+<main>
+
+    <div class="myContainer">
+
+    <form action="adminLogin.html"  onsubmit="savePage();">
+
+        <h3>Admin Account Login</h3>
+        <p>Required information is marked with an asterisk (*)</p><br>
+        <div class="cool">
+            <label for="username">Username*:</label>
+            <input type="text" class="input" name ="username" id="username" accesskey="U" required placeholder="Enter your Username"><br>
+
+            <label for= "password">Password*</label>
+            <input type="password" class="input" name ="password" id="password" accesskey="P" required placeholder="Enter your Password"><br>
+        </div>
+
+        <input type= "button" class="button" value="Submit Information" onclick="saveAdminLogin()"> <input type="reset" class="button" value="Reset Form"><br><br>
+
+        <a class="hyper" href="/Login.html"> Public user? Log in here!</a>
+
+    </form><br>
+
+    </div>
+</main>
+
+</body>
+
+</html>

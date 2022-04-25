@@ -1,0 +1,65 @@
+body {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	background: lightgrey;
+}
+
+.myContainer
+{
+	width: 500px;
+	padding: 2.5rem;
+	margin: 1rem;
+	font-family: Helvetica;
+	font-size: 12px;
+	box-shadow: 0 0 75px
+	rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	background: #ffffff;
+}
+
+h3
+{
+	font-size: 35px;
+}
+
+.input
+{
+	display: block;
+	width: 100%;
+	padding: 0.75rem;
+	box-sizing: border-box;
+	border-radius: 4px;
+	border: 1px;
+	border-style: solid;
+	border-color: #dddddd;
+	outline: none;
+	background: #eeeeee;
+	transition: background 0.2s, border-color 0.2s;
+}
+
+.cool
+{
+	margin-bottom: 1rem;
+}
+
+.button
+{
+	width: 100%;
+	padding: 0.5rem 1rem;
+	font-weight: bold;
+	font-size: 0.75rem;
+	color: black;
+	border-style: solid;
+	border-color: #dddddd;
+	border-radius: 4px;
+	background: gray(50);
+}
+
+.hyper
+{
+	justify-content: center;
+	align-items: center;
+}
