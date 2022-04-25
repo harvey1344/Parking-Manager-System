@@ -129,12 +129,16 @@ function post(path, data)
 				alert("in loginSend within post")
 
 				// if the server returns a response (exists) then we navigate to dashboard
-				if (rt === 'exists'){
+				if (rt === 'goodLogin'){
 					window.location.href = "dashboard.html"
 				}
 				// if the server does not return a response then we call badLogin() function within wp.js
-				else {
+				else if (rt==='badLogin') {
 					badLogin();
+				}
+				else if (rt==='noData')
+				{
+					noData();
 				}
 			}
 
@@ -158,7 +162,7 @@ function post(path, data)
 					carParkExists();
 					}
 				// if noData was returned (from app.js) then call method that displays a warning on screen
-				else if (rt === 'noData') {
+				else if (rt === 'cpNoData') {
 					noData();
 				}
 				// if nothing is returned, navigate to login page
@@ -185,7 +189,7 @@ function post(path, data)
 function carParkExists()
 {
 	let alertPara = document.createElement('p');
-	alertPara.textContent = 'Account already exists';
+	alertPara.textContent = 'Car Park Name already Exists';
 	alertPara.style.cssText = 'color: red';
 	alertPara.style.textAlign = 'center';
 	alertPara.style.backgroundColor = '#dedede';

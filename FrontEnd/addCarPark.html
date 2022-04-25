@@ -25,16 +25,16 @@
 			<p>Required information is marked with an asterisk (*)</p><br>
 			<div class="cool">
 				<label for="name">Name of Car Park:*</label>
-				<input type="text" class="input" name ="name" id="name" accesskey="N" required placeholder="Enter the Name of Car Park"><br>
+				<input required type="text" class="input" name ="name" id="name" accesskey="N" placeholder="Enter the Name of Car Park" /><br>
 
 				<label for= "blockLocation">Address:*</label>
-				<input type="text" class="input" name ="blockLocation" id="blockLocation" accesskey="A" required placeholder="Enter the Address of the Car Park"><br>
+				<input required type="text" class="input" name ="blockLocation" id="blockLocation" accesskey="A" placeholder="Enter the Address of the Car Park"/><br>
 
 				<label for= "maxCapacity">Number of parking spaces:*</label>
-				<input type="number" class="input" name ="maxCapacity" id="maxCapacity" accesskey="S" required placeholder="Enter the size of the Car Park"><br>
+				<input required type="number"  class="input" name ="maxCapacity" id="maxCapacity" accesskey="S" placeholder="Enter the size of the Car Park"/><br>
 
 				<label for= "basePrice">Base price of parking spaces(£):*</label>
-				<input type="number" class="input" name ="basePrice" id="basePrice" accesskey="P" required placeholder="Enter the size of the Car Park"><br>
+				<input required type="number" class="input" name ="basePrice" id="basePrice" accesskey="P" placeholder="Enter the size of the Car Park"/><br>
 			</div>
 
 			<input type= "button" class="button" value="Submit Information" onclick="saveCarPark()">
