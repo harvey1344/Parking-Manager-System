@@ -215,14 +215,14 @@ app.post('/adminDashboard/addCarPark', jsonParser, (req, res)=>
     const blockLocation= req.body.blockLocation;
     const maxCapacity= req.body.maxCapacity;
     const basePrice = req.body.basePrice;
-
-
-    carParkData = {
-        name: req.body.name,
-        blockLocation: req.body.blockLocation,
-        maxCapacity: maxCapacity,
-        basePrice: basePrice
+    const carParkData= new classes.CarPark(name, blockLocation, maxCapacity, basePrice);
+    for (let i = 1; i <= maxCapacity; i++)
+    {
+      space= new classes.parkingSpace(i, false, 0, false);
+      carParkData._spaces.push(space);
     }
+
+
 
     const fs = require('fs');
 
