@@ -151,26 +151,12 @@ function post(path, data)
 				}
 			}
 
-			else {
-				alert('Path was not formsend, loginsend, or adminSend')
-			}
-		}, error: function(){
-			alert("Error connecting to the server")
-		}
-	})
-
-		$.ajax ({
-		url: path,
-		data: json,
-		method: 'POST',
-		contentType: 'application/json',
-		success: function (rt) {
 			// if the path being passed in is /adminDashboard/addCarPark, do this
-			if (path === '/adminDashboard/addCarPark') {
-				// if the server returns a response (exists) then accountExists function will be called in wp.js
+			else if (path === '/adminDashboard/addCarPark') {
+			// if the server returns a response (exists) then accountExists function will be called in wp.js
 				if (rt === 'exists') {
 					carParkExists();
-				}
+					}
 				// if noData was returned (from app.js) then call method that displays a warning on screen
 				else if (rt === 'noData') {
 					noData();
@@ -180,10 +166,16 @@ function post(path, data)
 					alert('into path === /adminDashboard/addCarPark')
 					console.log(json)
 					alert('JSON: ' + json)
-
+							
 					window.location.href = "adminDashboard.html"
 				}
 			}
+
+			else {
+				alert('Path was not formsend, loginsend, or adminSend')
+			}
+		}, error: function(){
+			alert("Error connecting to the server")
 		}
 	})
 }
