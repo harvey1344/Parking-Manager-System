@@ -1,0 +1,111 @@
+header
+{
+    background-color: #223649 ;
+    text-align: center;
+}
+nav
+{
+    text-align: center;
+    background-color: lightgrey;
+    padding: 5px;
+    border-style: solid;
+    border-color: black;
+}
+nav ul
+{
+    margin: 0;
+    padding: 0;
+}
+nav ul li
+{
+    display: inline-block;
+    list-style-type: none;
+    border-left:solid;
+    border-right:solid;
+    border-color: black;
+    margin-bottom:0px;
+
+}
+nav > ul > li > a
+{
+    display: block;
+    line-height: 56px;
+    padding: 0 24px;
+    text-decoration: none;
+}
+nav a:hover
+{
+    background-color: darkgrey;
+}
+nav .selected
+{
+    background-color: #BDD7EE;
+    color: black;
+    font-weight: bold;
+}
+
+a
+{
+    color: black;
+}
+
+h1
+{
+    font-family: 'Helvetica';
+    text-align: center;
+}
+
+.menuContainer{
+    height: 60vh;
+    margin: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 15px 15px;
+}
+.menu {
+    font-size: 3rem;
+    text-align: center;
+    padding: 4rem;
+    border-radius: 30px;
+    border-style: groove;
+}
+.menu:hover {
+    background: lightskyblue;
+}
+.cell1{
+    background: grey;
+}
+.cell2{
+    background: grey;
+}
+
+.exampleContentContainer{
+    height: 60vh;
+    margin: 1rem;
+    border-style: solid;
+    text-align: center;
+}
+
+footer{ /*Sets up the footer element (which contains the copyright and team members
+  contact email info on each page) to display correctly, such as in the centre with
+  font size 15, stay at the bottom etc.*/
+    text-align: center;
+    font-size:15px;
+    font-style: italic;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: static;
+    background: rgb(128,128,128, 0.4);
+}
+
+body { /*sets up the main body element on each page to have a colour of white
+  (which mainly just sets the text elements within the body tags to white) as
+  well as setting the text font and background image*/
+    color: white;
+    font-family: 'Roboto', "Verdana" , sans-serif;
+    background: linear-gradient(to right, #654ea3, #eaafc8);
+    /*background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);*/
+    background-size: cover;
+}

@@ -8,8 +8,6 @@ const login = require('./API/Routes/verfiy/login.js');
 
 app.use(express.static('testproject'));
 
-const userDetails = []
-const carParkDetails = []
 const bodyParser = require('body-parser');
 const fs = require("fs");
 const jsonParser = bodyParser.json();
@@ -17,41 +15,45 @@ const jsonParser = bodyParser.json();
 
 
 app.get('/', function(req, res) {
-    res.sendFile('FrontEnd/Register.html', { root: __dirname })
-});
-
-app.get('/Login.html', function(req, res) {
-    res.sendFile('FrontEnd/Login.html', { root: __dirname })
-});
-
-app.get('/adminLogin.html', function(req, res) {
-    res.sendFile('FrontEnd/adminLogin.html', { root: __dirname })
+    res.sendFile('FrontEnd/pages/Login.html', { root: __dirname })
 });
 
 app.get('/Register.html', function(req, res) {
-    res.sendFile('FrontEnd/Register.html', { root: __dirname })
+    res.sendFile('FrontEnd/pages/Register.html', { root: __dirname })
+});
+
+app.get('/adminLogin.html', function(req, res) {
+    res.sendFile('FrontEnd/pages/adminLogin.html', { root: __dirname })
 });
 
 app.get('/style.css', function(req, res) {
-    res.sendFile('FrontEnd/style.css', { root: __dirname })
+    res.sendFile('FrontEnd/styles/style.css', { root: __dirname })
+});
+app.get('/dashStyle.css', function(req, res) {
+    res.sendFile('FrontEnd/styles/dashStyle.css', { root: __dirname })
+});
+app.get('/adminDashStyle.css', function(req, res) {
+    res.sendFile('FrontEnd/styles/adminDashStyle.css', { root: __dirname })
 });
 
 app.get('/wp.js', function(req, res) {
     res.sendFile('FrontEnd/JavaScript/wp.js', { root: __dirname })
-
+});
+app.get('/dashboard.js', function(req, res) {
+    res.sendFile('FrontEnd/JavaScript/dashboard.js', { root: __dirname })
 });
 
 
 app.get('/dashboard.html', function(req, res) {
-    res.sendFile('FrontEnd/dashboard.html', { root: __dirname })
+    res.sendFile('FrontEnd/pages/dashboard.html', { root: __dirname })
 });
 
 app.get('/adminDashboard.html', function(req, res) {
-    res.sendFile('FrontEnd/adminDashboard.html', { root: __dirname })
+    res.sendFile('FrontEnd/pages/adminDashboard.html', { root: __dirname })
 });
 
 app.get('/addCarPark.html', function(req, res) {
-   res.sendFile('FrontEnd/addCarPark.html', { root: __dirname })
+   res.sendFile('FrontEnd/pages/addCarPark.html', { root: __dirname })
 });
 
 

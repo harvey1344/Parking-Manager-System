@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--Below metatag set the viewport for the page up to display correctly with the css too-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+<head>
+    <title>Dashboard</title>
+    <!--First link below links to a bootstrap css that allows for easier creation
+    of elements and their design using an already made css, and implementing their
+    classes into this html-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="dashStyle.css"><!--links the css sheet file-->
+    <script src= "dashboard.js" defer></script>
+</head>
+<body>
+<!--Creates a nav menu (using an unordered list) to allow the user to access the other pages.
+Each button links to their respective page (e.g: "Our team" links to
+the Team page etc.)-->
+<!--Each of the classes used in the nav lines below makes use of the bootstrap css linked in the header,
+  allowing the nav menu to be formatted much easier using their css-->
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="addCarPark.html">Car Parks</a></li>
+        <li><a href="/">Logout</a></li>
+    </ul>
+</nav>
+<main><!--Anything inside the main tags defines the main content for the page-->
+
+    <div id="titleBox"><h1>Welcome User!</h1></div>
+
+    <div class="menuContainer">
+        <div class="menu cell1" onclick="location.href='examplePage.html';" style="cursor: pointer;">Dash menu item 1</div>
+        <div class="menu cell2" onclick="location.href='examplePage.html';" style="cursor: pointer;">Dash menu item 2</div>
+        <div class="menu cell3" onclick="location.href='examplePage.html';" style="cursor: pointer;">Dash menu item 3</div>
+        <div class="menu cell4" onclick="location.href='examplePage.html';" style="cursor: pointer;">Dash menu item 4</div>
+    </div>
+</main>
+<footer>
+    <div>Copyright (c) 2022 Software Engineering Group 25<br/><!--This section makes the copyright and
+    team names in the footer of each page, with each name linking to the persons email.
+    If you click the persons name it automatically opens email with their email in the contact area-->
+        <a href="mailto:a.gwilliam@uea.ac.uk">Alex Gwilliam, </a>
+        <a href="mailto:harvey.thompson@uea.ac.uk">Harvey Thompson, </a>
+        <a href="mailto:elliott.taylor@uea.ac.uk">Elliott Taylor, </a>
+        <a href="mailto:m.walby@uea.ac.uk">Morgan Walby, & </a>
+        <a href="mailto:stylianos.cleanthous@uea.ac.uk">Evangelos Cleanthous</a>
+    </div>
+</footer>
+<!--Following scripts are there to accompany the bootstrap link, as many components used
+by bootstrap also require JS to function, which is made here-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

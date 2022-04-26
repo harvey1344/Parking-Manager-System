@@ -130,6 +130,15 @@ function post(path, data)
 
 				// if the server returns a response (exists) then we navigate to dashboard
 				if (rt === 'goodLogin'){
+					let myForm = document.getElementById('login');
+					//del prev cookie if exist
+					document.cookie = "username= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+					//new cookie
+					document.cookie=`username=${myForm.elements[0].value}`
+
+
+
+
 					window.location.href = "dashboard.html"
 				}
 				// if the server does not return a response then we call badLogin() function within wp.js
@@ -255,26 +264,6 @@ function onError(error)
 
 const form = document.querySelector("form");
 
-function onSubmitHandler(event)
-{
-	/*event.preventDefault();
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    const json = JSON.stringify(data);
-    console.log(json);
-    fetch('/formSend',{method:'POST',
-                    headers:
-                    {
-                            'Content-Type': 'application/json'
-                    },
-                    body:json
-                   }
-            )
-        .then(onResponse,onError)
-        .then(success);*/
-	console.log('here')
-}
-// form.addEventListener("submit", onSubmitHandler);
 
 
     

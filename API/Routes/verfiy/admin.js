@@ -26,7 +26,7 @@ admin.post('/', jsonParser, (req, res) => {
         // send a response to the client side with exists if the data can be found
         res.send('exists')
         console.log("Moving to admin dashboard");
-        res.status(200).json(userData);
+        
 
         // if details cannot be found, send back "doesnt exist to the client side"
     } else{
