@@ -43,13 +43,20 @@ app.get('/dashboard.js', function(req, res) {
     res.sendFile('FrontEnd/JavaScript/dashboard.js', { root: __dirname })
 });
 
-
 app.get('/dashboard.html', function(req, res) {
     res.sendFile('FrontEnd/pages/dashboard.html', { root: __dirname })
 });
 
 app.get('/adminDashboard.html', function(req, res) {
     res.sendFile('FrontEnd/pages/adminDashboard.html', { root: __dirname })
+});
+
+app.get('/carParkList.html', function(req, res) {
+    res.sendFile('FrontEnd/pages/carParkList.html', { root: __dirname })
+});
+
+app.get('/userList.html', function(req, res) {
+    res.sendFile('FrontEnd/pages/userList.html', { root: __dirname })
 });
 
 app.get('/addCarPark.html', function(req, res) {
