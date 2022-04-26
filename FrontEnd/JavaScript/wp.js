@@ -5,7 +5,10 @@ function accountExists()
 	alertPara.textContent = 'Account already exists';
 	alertPara.style.cssText = 'color: red';
 	alertPara.style.textAlign = 'center';
-	alertPara.style.backgroundColor = '#dedede';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
 	let resetElement = document.querySelector('p');
 	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
 	resetButton.removeEventListener('click', onResetClick);
@@ -18,7 +21,10 @@ function badLogin()
 	alertPara.textContent = 'Account details could not be found';
 	alertPara.style.cssText = 'color: red';
 	alertPara.style.textAlign = 'center';
-	alertPara.style.backgroundColor = '#dedede';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
 	let resetElement = document.querySelector('p');
 	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
 	resetButton.removeEventListener('click', onResetClick);
@@ -31,7 +37,27 @@ function noData()
 	alertPara.textContent = 'Fields indicated by an asterisk cannot be left blank';
 	alertPara.style.cssText = 'color: red';
 	alertPara.style.textAlign = 'center';
-	alertPara.style.backgroundColor = '#dedede';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
+
+//creat car park form
+// called in registration if the account being added already exists
+function carParkExists()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'Car Park already exists';
+	alertPara.style.cssText = 'color: red';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
 	let resetElement = document.querySelector('p');
 	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
 	resetButton.removeEventListener('click', onResetClick);
@@ -193,19 +219,7 @@ function post(path, data)
 	})
 }
 
-//creat car park form
-// called in registration if the account being added already exists
-function carParkExists()
-{
-	let alertPara = document.createElement('p');
-	alertPara.textContent = 'Car Park Name already Exists';
-	alertPara.style.cssText = 'color: red';
-	alertPara.style.textAlign = 'center';
-	alertPara.style.backgroundColor = '#dedede';
-	let resetElement = document.querySelector('p');
-	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
-	resetButton.removeEventListener('click', onResetClick);
-}
+
 
 function saveCarPark()
 {
