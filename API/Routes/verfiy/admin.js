@@ -2,6 +2,7 @@ const admin = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const adminDetails = []
+// since there will only be one admin pre-specified by the brief, we can store the details in a local array
 adminDetails.push({firstname: "Admin",password: "Password"});
 
 
