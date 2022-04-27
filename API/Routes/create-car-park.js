@@ -48,7 +48,7 @@ create.post('/', jsonParser, (req, res)=>
                         }
                     
                     })
-                    console.log(`${carParkData} added to database`)
+                    console.log(`${carParkData.name} added to database`)
                     res.send('ok');
                 }
             

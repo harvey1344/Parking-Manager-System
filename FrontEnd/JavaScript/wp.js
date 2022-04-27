@@ -192,7 +192,7 @@ function post(path, data)
 					console.log(json)
 					alert('JSON: ' + json)
 
-					window.location.href = "Login.html"
+					window.location.href = "/"
 				}
 
 			}
@@ -212,7 +212,7 @@ function post(path, data)
 
 
 
-					window.location.href = "dashboard.html"
+					window.location.href = "/Home"
 				}
 				// if the server does not return a response then we call badLogin() function within wp.js
 				else if (rt==='badLogin') {
@@ -229,7 +229,7 @@ function post(path, data)
 
 				// if the server returns a response (exists) then we navigate to dashboard
 				if (rt === 'exists'){
-					window.location.href = "adminDashboard.html"
+					window.location.href = "/Admin"
 				}
 				// if the server does not return a response then we call badLogin() function within wp.js
 				else {
@@ -238,7 +238,7 @@ function post(path, data)
 			}
 
 			// if the path being passed in is /adminDashboard/addCarPark, do this
-			else if (path === '/adminDashboard/addCarPark') {
+			else if (path === '/addCarPark') {
 			// if the server returns a response (exists) then accountExists function will be called in wp.js
 				if (rt === 'exists') {
 					carParkExists();
@@ -249,11 +249,11 @@ function post(path, data)
 				}
 				// if nothing is returned, navigate to login page
 				else {
-					alert('into path === /adminDashboard/addCarPark')
+					alert('into path === /addCarPark')
 					console.log(json)
 					alert('JSON: ' + json)
 							
-					window.location.href = "adminDashboard.html"
+					window.location.href = "/Admin"
 				}
 			}
 
@@ -291,7 +291,7 @@ function saveCarPark()
 	const data = Object.fromEntries(formData);
 	console.log(data);
 	// for use in the post command
-	const path = '/adminDashboard/addCarPark'
+	const path = '/addCarPark'
 
 	// calls post method with the path and the form data
 	post(path,data)
