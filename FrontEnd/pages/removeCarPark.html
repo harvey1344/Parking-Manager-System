@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script src= "wp.js" defer></script>
+    <title>Add Car Park</title>
+</head>
+
+<body>
+<main>
+
+    <div class="myContainer">
+
+        <form action="/removeCarPark.html" onsubmit="removeCarPark()">
+
+            <h3>Remove Car Park</h3>
+            <p>Required information is marked with an asterisk (*)</p><br>
+            <div class="cool">
+                <label for="name">Name of Car Park:*</label>
+                <input required type="text" class="input" name ="name" id="name" accesskey="N" placeholder="Enter the Name of Car Park" /><br>
+
+            </div>
+
+            <input type= "button" class="button" value="Submit Information" onclick="removeCarPark()">
+            <input type="reset" class= "button" value="Reset Form"><br><br>
+
+            <a class="hyper" href="/adminDashboard.html"> Return to Dashboard</a><br>
+        </form><br>
+
+    </div>
+
+</main>
+</body>
+</html>
