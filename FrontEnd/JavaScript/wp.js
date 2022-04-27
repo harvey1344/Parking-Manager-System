@@ -63,6 +63,35 @@ function carParkExists()
 	resetButton.removeEventListener('click', onResetClick);
 }
 
+function badPark()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'Car Park could not be found';
+	alertPara.style.cssText = 'color: red';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
+
+function removalSuccess()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'Car Park was successfully removed!';
+	alertPara.style.cssText = 'color: green';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#D3FFCC';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = 'green';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
 // called by register.html - converts data to JSON and calls post function with this data and the '/formsend' path
 function savePage()
 {
@@ -117,10 +146,28 @@ function saveAdminLogin()
 	post(path,data)
 }
 
+function removeCarPark()
+{
+	alert('in the function removeCarPark')
+	// collects data from the form
+	const form = document.querySelector("form");
+	const formData = new FormData(form);
+	console.log(formData);
+	// create an object from the form data
+	const data = Object.fromEntries(formData);
+	console.log(data);
+	console.log('in removeCarPark');
+	// for use in the post command
+	const path = '/removeParkSend'
+
+	// calls post method with the path and the form data
+	post(path,data)
+}
+
 // posts the data to the URL specified by 'url' (handled server side in app.js)
 function post(path, data)
 {
-	alert('in formSend in post')
+	alert('in post')
 	const json = JSON.stringify(data);
 
 	$.ajax ({
@@ -207,6 +254,18 @@ function post(path, data)
 					alert('JSON: ' + json)
 							
 					window.location.href = "adminDashboard.html"
+				}
+			}
+
+			else if (path === '/removeParkSend'){
+				alert("in removeParkSend within post")
+
+				// if the server does not return a response then we call badLogin() function within wp.js
+				 if (rt==='badData') {
+					badPark();
+				}
+				else {
+					removalSuccess();
 				}
 			}
 

@@ -5,6 +5,7 @@ const create= require('./API/Routes/create-car-park.js');
 const admin = require('./API/Routes/verfiy/admin.js');
 const register = require('./API/Routes/verfiy/register.js');
 const login = require('./API/Routes/verfiy/login.js');
+const remove = require('./API/Routes/removePark');
 
 app.use(express.static('testproject'));
 
@@ -63,6 +64,9 @@ app.get('/addCarPark.html', function(req, res) {
    res.sendFile('FrontEnd/pages/addCarPark.html', { root: __dirname })
 });
 
+app.get('/removeCarPark.html', function(req, res) {
+    res.sendFile('FrontEnd/pages/removeCarPark.html', { root: __dirname })
+});
 
 // if the client side has made a post request with the path of /loginSend, run this
 app.use('/loginSend', login);
@@ -70,6 +74,8 @@ app.use('/loginSend', login);
 app.use('/formSend', register);
 // if the client side has made a post request with the path of /loginSend, run this
 app.use('/adminSend', admin);
+
+app.use('/removeParkSend',remove);
 
 app.use('/adminDashboard/addCarPark', create);
 
