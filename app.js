@@ -1,11 +1,10 @@
 //const wp = require("./wp.js");
 const express = require('express');
 const app = express();
-const create= require('./API/Routes/create-car-park.js');
+const carParks= require('./API/Routes/Car-Parks')
 const admin = require('./API/Routes/verfiy/admin.js');
 const register = require('./API/Routes/verfiy/register.js');
 const login = require('./API/Routes/verfiy/login.js');
-const remove = require('./API/Routes/removePark');
 const requestSpace = require('./API/Routes/request-space.js');
 
 app.use(express.static('testproject'));
@@ -30,9 +29,7 @@ app.use('/formSend', register);
 app.use('/adminSend', admin);
 
 //routers for car park functionality
-app.use('/removeParkSend',remove);
-
-app.use('/addCarPark', create);
+app.use('/Car-Parks', carParks);
 
 app.use('/space', requestSpace)
 
