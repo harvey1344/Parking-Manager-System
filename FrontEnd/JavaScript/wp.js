@@ -158,7 +158,7 @@ function removeCarPark()
 	console.log(data);
 	console.log('in removeCarPark');
 	// for use in the post command
-	const path = '/removeParkSend'
+	const path = '/Car-Parks/remove'
 
 	// calls post method with the path and the form data
 	post(path,data)
@@ -303,7 +303,7 @@ function saveCarPark()
 	const data = Object.fromEntries(formData);
 	console.log(data);
 	// for use in the post command
-	const path = '/addCarPark'
+	const path = '/Car-Parks/Add'
 
 	// calls post method with the path and the form data
 	post(path,data)
