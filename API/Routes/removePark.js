@@ -38,7 +38,9 @@ remove.post('/', jsonParser, (req, res)=>
                         }
 
                     })
+
                     console.log(`${parkName.name} removed from database`)
+
                     res.send('ok');
                 }
                 else {

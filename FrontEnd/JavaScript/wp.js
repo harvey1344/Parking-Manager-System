@@ -269,6 +269,18 @@ function post(path, data)
 				}
 			}
 
+			else if (path === '/removeParkSend'){
+				alert("in removeParkSend within post")
+
+				// if the server does not return a response then we call badLogin() function within wp.js
+				 if (rt==='badData') {
+					badPark();
+				}
+				else {
+					removalSuccess();
+				}
+			}
+
 			else {
 				alert('Path was not formsend, loginsend, or adminSend')
 			}
