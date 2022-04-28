@@ -78,10 +78,53 @@ function badPark()
 	resetButton.removeEventListener('click', onResetClick);
 }
 
+function badUser()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'User with that username could not be found';
+	alertPara.style.cssText = 'color: red';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
+function carParkAddSuccess()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'Car Park was successfully added!';
+	alertPara.style.cssText = 'color: green';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#D3FFCC';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = 'green';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
 function removalSuccess()
 {
 	let alertPara = document.createElement('p');
 	alertPara.textContent = 'Car Park was successfully removed!';
+	alertPara.style.cssText = 'color: green';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#D3FFCC';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = 'green';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
+
+function removalSuccessUser()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'User was successfully Deleted from records!';
 	alertPara.style.cssText = 'color: green';
 	alertPara.style.textAlign = 'center';
 	alertPara.style.backgroundColor = '#D3FFCC';
@@ -159,6 +202,24 @@ function removeCarPark()
 	console.log('in removeCarPark');
 	// for use in the post command
 	const path = '/Car-Parks/remove'
+
+	// calls post method with the path and the form data
+	post(path,data)
+}
+
+function removeUser()
+{
+	alert('in the function removeUser')
+	// collects data from the form
+	const form = document.querySelector("form");
+	const formData = new FormData(form);
+	console.log(formData);
+	// create an object from the form data
+	const data = Object.fromEntries(formData);
+	console.log(data);
+	console.log('in removeUser');
+	// for use in the post command
+	const path = '/removeUser'
 
 	// calls post method with the path and the form data
 	post(path,data)
@@ -247,13 +308,10 @@ function post(path, data)
 				else if (rt === 'cpNoData') {
 					noData();
 				}
-				// if nothing is returned, navigate to login page
-				else {
-					alert('into path === /addCarPark')
+				else if (rt === 'ok'){
+					alert('added!')
+					carParkAddSuccess();
 					console.log(json)
-					alert('JSON: ' + json)
-							
-					window.location.href = "/Admin"
 				}
 			}
 
@@ -278,6 +336,18 @@ function post(path, data)
 				}
 				else {
 					removalSuccess();
+				}
+			}
+
+			else if (path === '/removeUser'){
+				alert("in user remove within post")
+
+				// if the server does not return a response then we call badLogin() function within wp.js
+				if (rt==='badData') {
+					badUser();
+				}
+				else {
+					removalSuccessUser();
 				}
 			}
 
