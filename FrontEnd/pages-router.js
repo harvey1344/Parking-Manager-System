@@ -42,8 +42,13 @@ pages.get('/User-Management', function(req, res) {
     res.sendFile('./Pages/userList.html', { root: __dirname })
 });
 
+pages.get('/User-Management/add', function(req, res) {
+    res.sendFile('./Pages/addUser.html', { root: __dirname })
+});
 
-
+pages.get('/User-Management/remove', function(req, res) {
+    res.sendFile('./Pages/removeUser.html', { root: __dirname })
+});
 
 
 module.exports=pages;
