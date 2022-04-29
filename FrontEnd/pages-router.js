@@ -18,6 +18,9 @@ pages.get('/Home', function(req, res) {
 pages.get('/Space/request',function(req, res) {
     res.sendFile('./Pages/requestSpace.html', { root: __dirname })
 });
+pages.get('/Space/pay',function(req, res) {
+    res.sendFile('./Pages/payments.html', { root: __dirname })
+});
 
 
 //admin pages below
@@ -42,5 +45,8 @@ pages.get('/User-Management', function(req, res) {
     res.sendFile('./Pages/userList.html', { root: __dirname })
 });
 
+pages.get('/User-Management/remove', function(req, res) {
+    res.sendFile('./Pages/removeUser.html', { root: __dirname })
+});
 
 module.exports=pages;

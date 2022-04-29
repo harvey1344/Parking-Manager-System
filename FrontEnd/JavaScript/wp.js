@@ -1,3 +1,5 @@
+
+
 // called in registration if the account being added already exists
 function accountExists()
 {
@@ -191,7 +193,8 @@ function saveAdminLogin()
 
 function removeCarPark()
 {
-	alert('in the function removeCarPark')
+	console.log("In remvoe")
+	alert('in the function remove')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -199,7 +202,6 @@ function removeCarPark()
 	// create an object from the form data
 	const data = Object.fromEntries(formData);
 	console.log(data);
-	console.log('in removeCarPark');
 	// for use in the post command
 	const path = '/Car-Parks/remove'
 
@@ -219,7 +221,7 @@ function removeUser()
 	console.log(data);
 	console.log('in removeUser');
 	// for use in the post command
-	const path = '/removeUser'
+	const path = '/User-Management/remove'
 
 	// calls post method with the path and the form data
 	post(path,data)
@@ -228,6 +230,7 @@ function removeUser()
 // posts the data to the URL specified by 'url' (handled server side in app.js)
 function post(path, data)
 {
+	console.log(path)
 	alert('in post')
 	const json = JSON.stringify(data);
 
@@ -237,6 +240,7 @@ function post(path, data)
 		method: 'POST',
 		contentType: 'application/json',
 		success: function (rt) {
+			//console.log(rt)
 			// if the path being passed in is /formsend, do this
 			if (path === '/formSend') {
 				// if the server returns a response (exists) then accountExists function will be called in wp.js
@@ -299,7 +303,7 @@ function post(path, data)
 			}
 
 			// if the path being passed in is /adminDashboard/addCarPark, do this
-			else if (path === '/addCarPark') {
+			else if (path === '/Car-Parks/add') {
 			// if the server returns a response (exists) then accountExists function will be called in wp.js
 				if (rt === 'exists') {
 					carParkExists();
@@ -315,9 +319,8 @@ function post(path, data)
 				}
 			}
 
-			else if (path === '/removeParkSend'){
+			else if (path === '/Car-Parks/remove'){
 				alert("in removeParkSend within post")
-
 				// if the server does not return a response then we call badLogin() function within wp.js
 				 if (rt==='badData') {
 					badPark();
@@ -327,34 +330,22 @@ function post(path, data)
 				}
 			}
 
-			else if (path === '/removeParkSend'){
-				alert("in removeParkSend within post")
+		
 
+			else if (path === '/User-Management/remove'){
+				alert("in user remove within post");
 				// if the server does not return a response then we call badLogin() function within wp.js
-				 if (rt==='badData') {
-					badPark();
-				}
-				else {
-					removalSuccess();
-				}
-			}
-
-			else if (path === '/removeUser'){
-				alert("in user remove within post")
-
-				// if the server does not return a response then we call badLogin() function within wp.js
-				if (rt==='badData') {
+				if (rt==='noMatch') {
 					badUser();
 				}
-				else {
+				else if (rt=== 'ok') {
 					removalSuccessUser();
 				}
 			}
 
-			else {
-				alert('Path was not formsend, loginsend, or adminSend')
-			}
+			
 		}, error: function(){
+			console.log('eorr')
 			alert("Error connecting to the server")
 		}
 	})
@@ -373,7 +364,7 @@ function saveCarPark()
 	const data = Object.fromEntries(formData);
 	console.log(data);
 	// for use in the post command
-	const path = '/Car-Parks/Add'
+	const path = '/Car-Parks/add'
 
 	// calls post method with the path and the form data
 	post(path,data)
@@ -418,6 +409,9 @@ function onError(error)
 
 
 const form = document.querySelector("form");
+form.addEventListener("click",function(event){
+	event.preventDefault()
+  });
 
 
 

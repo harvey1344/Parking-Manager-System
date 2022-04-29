@@ -15,6 +15,11 @@ styles.get('/Space/style.css', function(req, res) {
     res.sendFile('./styles/style.css', { root: __dirname })
 });
 
+styles.get('/User-Management/style.css', function(req, res) {
+    res.sendFile('./styles/style.css', { root: __dirname })
+});
+
+
 styles.get('/dashStyle.css', function(req, res) {
     res.sendFile('./styles/dashStyle.css', { root: __dirname })
 });

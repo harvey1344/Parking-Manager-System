@@ -19,11 +19,17 @@ const sendRequest= ()=>
     headers: {
         "Content-type": "application/json; charset=UTF-8"
     }
+    
 })
  
-// Converting to JSON
-.then(response => response.json())
-// Displaying results to console
-.then(json => console.log(json));
+.then(function(res){ console.log(res.statusText) 
+    if (res.statusText==='OK')
+    {
+        window.location.href='/Space/pay'
+    }
+
+})
+.catch(function(res){ console.log(res) })
+
 }
 

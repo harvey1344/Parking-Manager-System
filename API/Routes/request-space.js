@@ -27,7 +27,10 @@ requestSpace.post('/', jsonParser, (req, res)=>
             const carParkToSearch= arr[index];
             index=spaceQuery-1;
             foundSpace= carParkToSearch._spaces[index];
+        
+            foundSpace.carPark= carParkQuery;
             console.log(foundSpace);
+            res.send("ok");
         
         
         }

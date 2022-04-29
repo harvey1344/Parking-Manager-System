@@ -46,7 +46,6 @@ carParks.post('/add', jsonParser, (req, res)=>
                         if (err)
                         {
                             console.log("error")
-                            return;
                         }
                     
                     })
@@ -81,7 +80,6 @@ carParks.post('/add', jsonParser, (req, res)=>
 
 carParks.post('/remove', jsonParser, (req, res)=>
 {
-    console.log('In post function appJS')
     const fs = require('fs');
     const path='./carPark.JSON';
 
@@ -114,7 +112,7 @@ carParks.post('/remove', jsonParser, (req, res)=>
                         }
 
                     })
-                    console.log(`${parkName.name} removed from database`)
+                    console.log(`${parkName._name} removed from database`)
                     res.send('ok');
                 }
                 else {

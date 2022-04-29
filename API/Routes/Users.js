@@ -1,10 +1,9 @@
-const rUser = require('express').Router();
+const users = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-rUser.post('/', jsonParser, (req, res)=>
+users.post('/remove', jsonParser, (req, res)=>
 {
-    console.log('In post function for remove users appJS')
     const fs = require('fs');
     const path='./userDB.JSON';
 
@@ -37,12 +36,12 @@ rUser.post('/', jsonParser, (req, res)=>
                         }
 
                     })
-                    console.log(`${userName.name} removed from database`)
+                    console.log(`${userName.username} removed from database`)
                     res.send('ok');
                 }
                 else {
                     console.log('database does not contain username entered')
-                    res.send('badData')
+                    res.send('noMatch')
                 }
             }
         })
@@ -55,4 +54,4 @@ rUser.post('/', jsonParser, (req, res)=>
 })
 
 
-module.exports= rUser;
+module.exports=users;
