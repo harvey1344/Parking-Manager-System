@@ -2,6 +2,7 @@ const carParks = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const classes= require('./Classes');
+const {CarPark} = require("./Classes");
 
 
 //add
@@ -128,6 +129,77 @@ carParks.post('/remove', jsonParser, (req, res)=>
     }
 
 })
+
+carParks.post('/display', jsonParser, (req, res)=> {
+{
+   //console.log('In carParks /display in car-Parks.js')
+    const fs = require('fs');
+    const path='./carPark.JSON';
+
+    if (fs.existsSync(path))
+    {
+        fs.readFile(path, (err, data)=>
+        {
+            const dataArr = [];
+            if (err){console.log('error')}
+            else{
+                let obj= JSON.parse(data);
+                let arr = obj.carParks;
+
+                const nameData= arr.map(x => x._name);
+                const locationData= arr.map(x => x._blockLocation);
+                const capacityData= arr.map(x => x._maxCapacity);
+                const priceData= arr.map(x => x._basePrice);
+                const spaceData= arr.map(x => x._spaces);
+
+                // test code - please do not remove in case I need to look at this again later
+
+                /*console.log("spacedata.len: " + spaceData.length)
+                console.log("spacedata[0][0]: " + spaceData[0][0]._isBooked);
+                console.log("spacedata[0]: ");
+                console.log(spaceData[0]);
+                console.log("spacedata[0].len: " + spaceData[0].length)
+                console.log("spacedata[1]: ");
+                console.log(spaceData[1]);
+                console.log("spacedata[2]: ");
+                console.log(spaceData[2]);
+                console.log("spacedata[0].len: " + spaceData[2].length)*/
+
+
+                // appends each car parks' unbooked spaces to an array.
+                let numArray = [];
+                for(let i = 0; i < spaceData.length; i++){
+                    //console.log('i: ' + i);
+                    let count = 0;
+                    for(let j = 0; j < spaceData[i].length; j++){
+                        if(spaceData[i][j]._isBooked === false){
+                            //console.log('i: ' + i);
+                            //console.log('j: ' + j);
+                            //console.log('false');
+                            count ++;
+                            //console.log('count: ' + count);
+                        }
+                    }
+                    numArray.push(count);
+                }
+                //console.log('numArray: ' + numArray);
+
+
+                for(let i = 0; i < nameData.length; i++){
+                    dataArr.push(nameData[i]);
+                    dataArr.push(locationData[i]);
+                    dataArr.push(capacityData[i]);
+                    dataArr.push(priceData[i]);
+                    dataArr.push(numArray[i]);
+                }
+
+                res.send(dataArr);
+            }
+        })
+    }
+}})
+
+
 
 
 module.exports= carParks;

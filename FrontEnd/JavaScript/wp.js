@@ -227,6 +227,121 @@ function removeUser()
 	post(path,data)
 }
 
+function refreshUsers()
+{
+	const path ='/User-Management/display';
+
+	console.log('in refreshJSON')
+
+	$.ajax({
+		url: path,
+		method: 'POST',
+		success: function (rt) {
+			if (path === '/User-Management/display') {
+				// if the server returns a response (exists) then accountExists function will be called in wp.js
+
+				console.log(rt);
+
+				refreshUserDataHandler(rt)
+			}
+		}
+	})
+}
+
+function refreshUserDataHandler(data){
+	console.log('in data handle, data: ' + data);
+
+	// disallows multiple clicks of button
+	document.getElementById("refreshFunctionButton").disabled = true;
+
+	// textFill is an empty div in userList.html placed there so we can append elements to it
+	const divTextFill = document.getElementById('textFill');
+
+	// Generates Username and Password HEADINGS for the table
+	const textArray = ['Username','Password'];
+	for(let i = 0; i < textArray.length; i++){
+		let divElement = document.createElement('titleDiv');
+		divTextFill.appendChild(divElement);
+		// if you ever want to change the style of these elements, edit jsTitleDiv in adminDashStyle.css
+		divElement.classList.add('jsTitleDiv');
+
+		divElement.textContent = textArray[i];
+	}
+
+	// Generates the table CSS for the dynamic user data records
+	for(let i = 0; i < data.length; i++){
+
+		let divElement = document.createElement('dataArrayDiv');
+		divTextFill.appendChild(divElement);
+		// if you ever want to change the style of these elements, edit jsDiv in adminDashStyle
+		// IF WE ADD A PASSWORD FIELD FOR USERS: its important the CSS gets changed to 33%
+		// otherwise it will not fit on the page
+		divElement.classList.add('jsDiv');
+
+		// username and pass in one line
+		divElement.textContent = data[i];
+
+	}
+}
+
+function refreshCarParks()
+{
+	const path ='/Car-Parks/display';
+
+	console.log('in refreshJSON')
+
+	$.ajax({
+		url: path,
+		method: 'POST',
+		success: function (rt) {
+			if (path === '/Car-Parks/display') {
+				// if the server returns a response (exists) then accountExists function will be called in wp.js
+
+				console.log(rt);
+
+				refreshCarParkDataHandler(rt)
+			}
+		}
+	})
+}
+
+function refreshCarParkDataHandler(data){
+	console.log('in data handle, data: ' + data);
+
+	// disallows multiple clicks of button
+	document.getElementById("refreshFunctionButton").disabled = true;
+
+	// textFill is an empty div in userList.html placed there so we can append elements to it
+	const divTextFill = document.getElementById('textFill');
+
+	// Generates Username and Password HEADINGS for the table
+	const textArray = ['Name','Location','Max Capacity','Price Per Hour (£)','Number of Available Spaces'];
+	for(let i = 0; i < textArray.length; i++){
+		let divElement = document.createElement('titleDiv');
+		divTextFill.appendChild(divElement);
+		// if you ever want to change the style of these elements, edit jsTitleDiv in adminDashStyle.css
+		divElement.classList.add('jsParkTitleDiv');
+
+		divElement.textContent = textArray[i];
+	}
+
+	// Generates the table CSS for the dynamic user data records
+	for(let i = 0; i < data.length; i++){
+
+		let divElement = document.createElement('dataArrayDiv');
+		divTextFill.appendChild(divElement);
+		// if you ever want to change the style of these elements, edit jsDiv in adminDashStyle
+		// IF WE ADD A PASSWORD FIELD FOR USERS: its important the CSS gets changed to 33%
+		// otherwise it will not fit on the page
+		divElement.classList.add('jsParkDiv');
+
+		// username and pass in one line
+		divElement.textContent = data[i];
+
+	}
+}
+
+
 // posts the data to the URL specified by 'url' (handled server side in app.js)
 function post(path, data)
 {

@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="adminDashStyle.css" type="text/css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
     <script src= "wp.js" defer></script>
     <title>DashBoard</title>
 </head>
@@ -22,7 +27,13 @@
 <main>
 
     <div id="titleBox"><h1>Car Park Management</h1></div>
+    <h2> Currently Registered Car Parks</h2>
 
+    <div id = "textFill"></div>
+
+
+
+    <button id="refreshFunctionButton" onclick="refreshCarParks()">Refresh Car Parks</button><br>
     <button type="button"><a href="/Car-Parks/add"> Add New CarPark</a></button><br>
     <button type="button"><a href="/Car-Parks/remove"> Remove CarPark</a></button><br>
     <a href="/Admin"> Back </a>

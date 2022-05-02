@@ -54,4 +54,38 @@ users.post('/remove', jsonParser, (req, res)=>
 })
 
 
+users.post('/display', jsonParser, (req, res)=>
+{
+   console.log('in display in server');
+   const fs = require('fs');
+   const path='./userDB.JSON';
+
+    if (fs.existsSync(path))
+    {
+        fs.readFile(path, (err, data)=>
+        {
+            const dataArr = [];
+            if (err){console.log('error')}
+            else{
+                let obj= JSON.parse(data);
+                let arr = obj.details;
+
+                const nameData= arr.map(x => x.username);
+                const passData = arr.map(x => x.password);
+
+
+                console.log('nameData: ' + nameData);
+                console.log('passData: ' + passData);
+
+                for(let i = 0; i < nameData.length; i++){
+                    dataArr.push(nameData[i]);
+                    dataArr.push(passData[i]);
+                }
+
+                res.send(dataArr);
+                }
+        })
+    }
+})
+
 module.exports=users;

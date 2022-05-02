@@ -67,6 +67,7 @@ class CarPark{
     this._basePrice= basePrice;
     this._spaces= [];
   }
+
   get name()
   {
     return this._name;
