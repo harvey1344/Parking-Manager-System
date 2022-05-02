@@ -7,11 +7,29 @@
 	<link rel="stylesheet" href="style.css" type="text/css"/>
 
 
-	<script src= "" defer></script>
+	<script src= "pay.js" defer></script>
 	<title>DriverLogin</title>
+	
 </head>
 
 <body>
+	<div id="pay">
+		<h1>Payments</h1>
+		<form id ='payment' >
+
+			<h3 id ='change'>User Account Login</h3>
+			<p>Required information is marked with an asterisk (*)</p><br>
+			<div class="cool">
+				<label for="cardNo">Card Number*:</label>
+				<input type="text" class="input" name ="cardNo" id="cardNo" accesskey="U"><br>
+
+				<label for= "pay">Pay*</label>
+				<input type="text" class="input" name ="pay" id="pay" accesskey="P" required placeholder="Enter your Password"><br>
+			</div>
+
+			<input type= "button" class="button" value="Pay" onclick="submitPayment()"> <input type="reset" class= "button" value="Reset Form"><br><br>
+	</form><br>
+	</div>
 
 </body>
 

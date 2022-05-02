@@ -23,6 +23,7 @@ pages.get('/Space/pay',function(req, res) {
 });
 
 
+
 //admin pages below
 pages.get('/Admin', function(req, res) {
     res.sendFile('./Pages/adminDashboard.html', { root: __dirname })

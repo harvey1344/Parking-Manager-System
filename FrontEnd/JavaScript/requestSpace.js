@@ -1,5 +1,6 @@
 
 console.log("workign")
+console.log(getCookie('test'));
 const sendRequest= ()=>
 {
     let carpark= document.getElementById('request').elements[0].value;
@@ -21,15 +22,66 @@ const sendRequest= ()=>
     }
     
 })
- 
-.then(function(res){ console.log(res.statusText) 
-    if (res.statusText==='OK')
-    {
-        window.location.href='/Space/pay'
-    }
+ .then(function(res){
+   if(res.statusText=== "Not Found")
+   {
+     alert("Sprry space not found")
+     return
+   }
+   else
+   {
+    return res.json();
+   }
+
+ })
+.then(function(data){ 
+  let space = data;
+  console.log(space);
+
+  if (space._isBooked || space._occupied)
+  {
+    alert("Sorry space is currently booked or in use ");
+    location.reload();
+  }
+  else 
+  {
+    //set cookies ugh
+    console.log(getCookie('username'))
+    document.cookie = "spaceID= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    document.cookie = "carPark= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    setCookie('spaceID', space._spaceID);
+    setCookie('carPark', space.carPark);
+
+    window.location.href='/Space/pay'
+
+  }
+    
 
 })
 .catch(function(res){ console.log(res) })
 
 }
 
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }

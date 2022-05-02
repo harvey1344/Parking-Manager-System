@@ -31,7 +31,6 @@ class parkingSpace {
   set occupied(value)
   {
     this._occupied= value;
-    setTimeout(this.timer, 100);
   }
 
   set booked (value)
@@ -47,14 +46,7 @@ class parkingSpace {
 
 
   
-  // when timer called reset duration
-  // TODO need a function for a user to exit space
-  timer= ()=>
-  {
-
-    this._isBooked=false;
-    this._occupiedDuration=0;
-  }
+  
 
 }
 
