@@ -50,4 +50,8 @@ pages.get('/User-Management/remove', function(req, res) {
     res.sendFile('./Pages/removeUser.html', { root: __dirname })
 });
 
+pages.get('/Thanks', function(req, res) {
+    res.sendFile('./Pages/alert.html', { root: __dirname })
+});
+
 module.exports=pages;

@@ -13,6 +13,8 @@ app.use(express.static('testproject'));
 const pages = require('./FrontEnd/pages-router');
 const styles = require('./FrontEnd/styles-router.js');
 const js = require('./FrontEnd/js-router.js');
+const res = require('express/lib/response');
+const dash = require('./API/Routes/DashBoard');
 
 
 
@@ -37,6 +39,13 @@ app.use('/Car-Parks', carParks);
 app.use('/space', requestSpace);
 
 app.use('/User-Management', users)
+
+app.use('/Home', dash)
+
+pages.get('/CDB', function(req, res) {
+    res.sendFile('./carPark.JSON', { root: __dirname })
+});
+
 
 
 

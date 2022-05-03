@@ -14,6 +14,8 @@ requestSpace.post('/', jsonParser, (req, res)=>
     //TODO check car park exists
     const carParkQuery= req.body.carpark;
     const spaceQuery= req.body.spaceID;
+    const timeToAdd= req.body.duration;
+    console.log(timeToAdd)
     const path='./carPark.JSON';
     let foundSpace;
 
@@ -32,8 +34,8 @@ requestSpace.post('/', jsonParser, (req, res)=>
             }
             else{
                 const carParkToSearch= arr[index];
+                const rate = carParkToSearch._basePrice
                 index=spaceQuery-1;
-                console.log(`${index} haha ${carParkToSearch._maxCapacity}`)
                 if (carParkToSearch._maxCapacity <=index)
                 {
                     res.status(404).send('NO');
@@ -47,6 +49,7 @@ requestSpace.post('/', jsonParser, (req, res)=>
                     
                     foundSpace= carParkToSearch._spaces[index];
                     foundSpace.carPark= carParkQuery;
+                    foundSpace.payment= timeToAdd*rate;
                     console.log(foundSpace);
                     res.json(foundSpace);
                  }

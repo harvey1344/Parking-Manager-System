@@ -5,7 +5,8 @@ const sendRequest= ()=>
 {
     let carpark= document.getElementById('request').elements[0].value;
     let space= document.getElementById('request').elements[1].value;
-    console.log(carpark);
+    let time= document.getElementById('request').elements[2].value;
+    console.log(time);
 
     fetch("http://localhost:5000/space", {
      
@@ -14,7 +15,8 @@ const sendRequest= ()=>
     // Adding body or contents to send
     body: JSON.stringify({
         carpark: carpark,
-        spaceID: space
+        spaceID: space,
+        duration: time
     }),
     // Adding headers to the request
     headers: {
@@ -49,8 +51,11 @@ const sendRequest= ()=>
     console.log(getCookie('username'))
     document.cookie = "spaceID= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
     document.cookie = "carPark= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    document.cookie = "payment= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
     setCookie('spaceID', space._spaceID);
     setCookie('carPark', space.carPark);
+    setCookie('payment', space.payment)
+
 
     window.location.href='/Space/pay'
 

@@ -29,10 +29,14 @@ const spaceMaker =() =>
 let newSpace= spaceMaker();
 
 console.log(newSpace);
+const payment = getCookie('payment');
 
 
-document.getElementById('change').innerHTML=`Payment for CarPark: ${newSpace.CarPark}
-, Space: ${newSpace.spaceID}`;
+
+document.getElementById('change').innerHTML=`Request for <strong>${newSpace.CarPark}: ${newSpace.spaceID}
+</strong>accepted`;
+document.getElementById('change2').innerHTML=`Please pay the amount: <em>${payment}</em>`;
+
 
 const submitPayment= ()=>
 {
