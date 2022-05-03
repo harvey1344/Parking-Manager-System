@@ -2,7 +2,6 @@ const carParks = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const classes= require('./Classes');
-const {CarPark} = require("./Classes");
 
 
 //add
