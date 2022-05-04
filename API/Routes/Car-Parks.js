@@ -184,12 +184,32 @@ carParks.post('/display', jsonParser, (req, res)=> {
                 //console.log('numArray: ' + numArray);
 
 
+                let carParkID = [];
+                for(let i = 0; i < spaceData.length; i++){
+                    //console.log('i: ' + i);
+                    let str = '';
+                    let count = 0;
+                    for(let j = 0; j < spaceData[i].length; j++){
+                        if(spaceData[i][j]._isBooked === false){
+                            str += spaceData[i][j]._spaceID + ', ';
+                            count ++
+                        }
+                    }
+                    if (count === 0){
+                        carParkID.push('No Free Spaces Currently')
+                    } else {
+                        carParkID.push(str);
+                    }
+
+                }
+                console.log(carParkID)
                 for(let i = 0; i < nameData.length; i++){
                     dataArr.push(nameData[i]);
                     dataArr.push(locationData[i]);
                     dataArr.push(capacityData[i]);
                     dataArr.push(priceData[i]);
                     dataArr.push(numArray[i]);
+                    dataArr.push(carParkID[i]);
                 }
 
                 res.send(dataArr);

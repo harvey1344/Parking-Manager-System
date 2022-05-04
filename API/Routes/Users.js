@@ -56,7 +56,7 @@ users.post('/remove', jsonParser, (req, res)=>
 
 users.post('/display', jsonParser, (req, res)=>
 {
-   console.log('in display in server');
+   //console.log('in display in server');
    const fs = require('fs');
    const path='./userDB.JSON';
 
@@ -74,8 +74,9 @@ users.post('/display', jsonParser, (req, res)=>
                 const passData = arr.map(x => x.password);
 
 
-                console.log('nameData: ' + nameData);
-                console.log('passData: ' + passData);
+                //console.log('nameData: ' + nameData);
+                //console.log('passData: ' + passData);
+
 
                 for(let i = 0; i < nameData.length; i++){
                     dataArr.push(nameData[i]);

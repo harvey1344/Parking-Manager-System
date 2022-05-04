@@ -28,4 +28,8 @@ js.get('/User-Management/wp.js',function(req, res) {
     res.sendFile('./JavaScript/wp.js', { root: __dirname })
 });
 
+js.get('/Space/wp.js',function(req, res) {
+    res.sendFile('./JavaScript/wp.js', { root: __dirname })
+});
+
 module.exports=js;

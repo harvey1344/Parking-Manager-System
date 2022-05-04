@@ -140,7 +140,6 @@ function removalSuccessUser()
 // called by register.html - converts data to JSON and calls post function with this data and the '/formsend' path
 function savePage()
 {
-	alert('in the function savePage')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -159,7 +158,6 @@ function savePage()
 // called by login.html - converts data to JSON and calls post function with this data and the '/loginSend' path
 function saveLogin()
 {
-	alert('in the function saveLOGIN')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -176,7 +174,6 @@ function saveLogin()
 
 function saveAdminLogin()
 {
-	alert('in the function saveADMINlogin')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -194,7 +191,6 @@ function saveAdminLogin()
 function removeCarPark()
 {
 	console.log("In remvoe")
-	alert('in the function remove')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -211,7 +207,6 @@ function removeCarPark()
 
 function removeUser()
 {
-	alert('in the function removeUser')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -315,7 +310,7 @@ function refreshCarParkDataHandler(data){
 	const divTextFill = document.getElementById('textFill');
 
 	// Generates Username and Password HEADINGS for the table
-	const textArray = ['Name','Location','Max Capacity','Price Per Hour (£)','Number of Available Spaces'];
+	const textArray = ['Name','Location','Max Capacity','Price Per Hour (£)','Number of Available Spaces','Space IDs Available'];
 	for(let i = 0; i < textArray.length; i++){
 		let divElement = document.createElement('titleDiv');
 		divTextFill.appendChild(divElement);
@@ -346,7 +341,6 @@ function refreshCarParkDataHandler(data){
 function post(path, data)
 {
 	console.log(path)
-	alert('in post')
 	const json = JSON.stringify(data);
 
 	$.ajax ({
@@ -368,9 +362,7 @@ function post(path, data)
 				}
 				// if nothing is returned, navigate to login page
 				else{
-					alert('into path === /formSend')
 					console.log(json)
-					alert('JSON: ' + json)
 
 					window.location.href = "/"
 				}
@@ -379,7 +371,6 @@ function post(path, data)
 
 			// if the path being passed in is /loginSend, do this
 			else if (path === '/loginSend'){
-				alert("in loginSend within post")
 
 				// if the server returns a response (exists) then we navigate to dashboard
 				if (rt === 'goodLogin'){
@@ -405,7 +396,6 @@ function post(path, data)
 			}
 
 			else if (path === '/adminSend'){
-				alert("in adminSend within post")
 
 				// if the server returns a response (exists) then we navigate to dashboard
 				if (rt === 'exists'){
@@ -428,14 +418,12 @@ function post(path, data)
 					noData();
 				}
 				else if (rt === 'ok'){
-					alert('added!')
 					carParkAddSuccess();
 					console.log(json)
 				}
 			}
 
 			else if (path === '/Car-Parks/remove'){
-				alert("in removeParkSend within post")
 				// if the server does not return a response then we call badLogin() function within wp.js
 				 if (rt==='badData') {
 					badPark();
@@ -448,7 +436,6 @@ function post(path, data)
 		
 
 			else if (path === '/User-Management/remove'){
-				alert("in user remove within post");
 				// if the server does not return a response then we call badLogin() function within wp.js
 				if (rt==='noMatch') {
 					badUser();
@@ -470,7 +457,6 @@ function post(path, data)
 
 function saveCarPark()
 {
-	alert('in the function saveCarPark')
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
