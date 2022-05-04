@@ -253,7 +253,7 @@ function refreshUserDataHandler(data){
 	const divTextFill = document.getElementById('textFill');
 
 	// Generates Username and Password HEADINGS for the table
-	const textArray = ['Username','Password'];
+	const textArray = ['Username','Password','Space booked ID'];
 	for(let i = 0; i < textArray.length; i++){
 		let divElement = document.createElement('titleDiv');
 		divTextFill.appendChild(divElement);

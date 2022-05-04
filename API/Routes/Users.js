@@ -2,8 +2,10 @@ const users = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
+
 users.post('/remove', jsonParser, (req, res)=>
 {
+
     const fs = require('fs');
     const path='./userDB.JSON';
 
@@ -13,6 +15,7 @@ users.post('/remove', jsonParser, (req, res)=>
     {
         fs.readFile(path, (err, data)=>
         {
+            console.log('usersName: ' + usersName);
             if (err){console.log('error')}
             else{
                 let obj= JSON.parse(data);
@@ -59,32 +62,71 @@ users.post('/display', jsonParser, (req, res)=>
    //console.log('in display in server');
    const fs = require('fs');
    const path='./userDB.JSON';
+   const carParkPath='./carPark.JSON';
 
     if (fs.existsSync(path))
     {
         fs.readFile(path, (err, data)=>
         {
-            const dataArr = [];
-            if (err){console.log('error')}
-            else{
-                let obj= JSON.parse(data);
-                let arr = obj.details;
+            fs.readFile(carParkPath, (carParkErr, carParkData)=>
+            {
+                const dataArr = [];
+                if (err){console.log('error')}
+                else{
+                    let car = JSON.parse(carParkData);
+                    let carr = car.carParks;
 
-                const nameData= arr.map(x => x.username);
-                const passData = arr.map(x => x.password);
+                    const parkSpaceData = carr.map(x => x._spaces);
+                    const parkNameData = carr.map(x => x._name);
+
+                    let carParkID = [];
 
 
-                //console.log('nameData: ' + nameData);
-                //console.log('passData: ' + passData);
+                    let obj= JSON.parse(data);
+                    let arr = obj.details;
+
+                    const nameData= arr.map(x => x.username);
+                    const passData = arr.map(x => x.password);
 
 
-                for(let i = 0; i < nameData.length; i++){
-                    dataArr.push(nameData[i]);
-                    dataArr.push(passData[i]);
+                    //console.log('nameData: ' + nameData);
+                    //console.log('passData: ' + passData);
+
+                    // for every user
+                    for(let i = 0; i < nameData.length; i++){
+                        // push their name and password to the array
+                        dataArr.push(nameData[i]);
+                        dataArr.push(passData[i]);
+
+
+                        let count = 0;
+                        // then for each parking space in the JSON file
+                        for(let j = 0; j < parkSpaceData.length; j++){
+                            //console.log('i: ' + i);
+
+
+
+                            // iterate over the fields and
+                            for(let k = 0; k < parkSpaceData[j].length; k++){
+                                if(parkSpaceData[j][k]._isBooked === nameData[i]){
+
+                                    /*console.log('Car park: ' + parkSpaceData[j][k]._name +
+                                        ', Space ID: ' + parkSpaceData[j][k]._spaceID
+                                    + ' booked by: ' + nameData[i])*/
+                                    dataArr.push(parkSpaceData[j][k]._spaceID);
+                                    count ++
+                                }
+                            }
+
+                        }if(count === 0){
+                            dataArr.push('No spaces booked');
+                        }
+                    }
+
+                    res.send(dataArr);
                 }
+            })
 
-                res.send(dataArr);
-                }
         })
     }
 })

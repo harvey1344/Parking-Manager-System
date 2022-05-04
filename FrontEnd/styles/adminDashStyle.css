@@ -116,7 +116,7 @@ body { /*sets up the main body element on each page to have a colour of white
 }
 
 .jsTitleDiv{
-    width: 48%;
+    width: 28%;
     height: 20%;
     margin-bottom: 1px;
     padding: 10px;
@@ -134,7 +134,7 @@ body { /*sets up the main body element on each page to have a colour of white
 }
 
 .jsDiv{
-    width: 48%;
+    width: 28%;
     height: 48%;
     margin-bottom: 1px;
     padding: 10px;

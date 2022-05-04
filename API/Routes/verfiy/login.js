@@ -29,7 +29,7 @@ login.post('/', jsonParser, (req,res)=>
                 let users= dataBase.details;
                 if (users.some(e => e.username===user.username && e.password===user.password))
                 {
-                    
+                    usersName = user.username;
                     console.log(`${user.username} details matched, logging in`);
                     res.send("goodLogin");
                 
