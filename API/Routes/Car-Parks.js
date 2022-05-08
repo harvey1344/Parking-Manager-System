@@ -218,7 +218,47 @@ carParks.post('/display', jsonParser, (req, res)=> {
     }
 }})
 
+carParks.post('/graph', jsonParser, (req, res)=> {
+    {
+        let dataArray = [];
 
+
+        const fs = require('fs');
+
+        fs.readFile('./carPark.JSON', (err, userData)=>
+        {
+            let obj= JSON.parse(userData);
+            let arr = obj.carParks;
+
+            const nameData= arr.map(x => x._name);
+            const spaceData= arr.map(x => x._spaces);
+            const capacity = arr.map(x => x._maxCapacity);
+
+            //console.log('nameData: ' + nameData);
+
+            let spaceArray = [];
+            for(let i = 0; i < spaceData.length; i++){
+                let count = 0;
+                for(let j = 0; j < spaceData[i].length; j++){
+                    if(spaceData[i][j]._isBooked === false){
+                        count ++;
+                    }
+                }
+                // might be problematic
+                spaceArray.push(capacity[i] - count);
+            }
+
+            for(let i = 0; i < nameData.length; i++){
+                dataArray.push(nameData[i]);
+                dataArray.push(spaceArray[i]);
+            }
+
+            //console.log('data array: ' + dataArray);
+            res.send(dataArray);
+        });
+
+
+    }});
 
 
 module.exports= carParks;

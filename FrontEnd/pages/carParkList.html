@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src= "wp.js" defer></script>
     <title>DashBoard</title>
 </head>
@@ -32,12 +33,20 @@
 
     <div id = "textFill"></div>
 
+    <div id = "container">
+        <div id = "graph"></div>
+    </div>
+
+
 
 
     <button id="refreshFunctionButton" onclick="refreshCarParks()">Refresh Car Parks</button><br>
     <button type="button"><a href="/Car-Parks/add"> Add New CarPark</a></button><br>
     <button type="button"><a href="/Car-Parks/remove"> Remove CarPark</a></button><br>
+    <button id="displayGraph" onclick="displayGraph()">Graphical View</button><br>
+
     <a href="/Admin"> Back </a>
+
 
 
 </main>

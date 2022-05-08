@@ -1,5 +1,4 @@
 
-
 // called in registration if the account being added already exists
 function accountExists()
 {
@@ -190,7 +189,6 @@ function saveAdminLogin()
 
 function removeCarPark()
 {
-	console.log("In remvoe")
 	// collects data from the form
 	const form = document.querySelector("form");
 	const formData = new FormData(form);
@@ -222,6 +220,76 @@ function removeUser()
 	post(path,data)
 }
 
+function displayGraph()
+{
+	const path ='/Car-Parks/graph';
+
+	console.log('in refreshJSON')
+
+	$.ajax({
+		url: path,
+		method: 'POST',
+		success: function (rt) {
+			if (path === '/Car-Parks/graph') {
+
+				//console.log('rt: ' + rt);
+
+				let name = [];
+				let data = []
+
+				for(let i = 0; i < rt.length; i = i+2){
+					name.push(rt[i]);
+				}
+				for(let i = 1; i < rt.length; i = i+2){
+					data.push(rt[i]);
+				}
+
+				//console.log('name: ' + name);
+				//console.log('data: ' + data);
+
+                    const options = {
+                        chart: {
+                            height: 350,
+                            type: 'bar',
+                            background: 'f4f4f4',
+                            foreColor: '#FFFFFF'
+                        },
+						dataLabels: {
+							background: {
+								enabled: true,
+								foreColor: '#000',
+							},
+						},
+                        series: [{
+                                data: data
+                            }],
+                        xaxis: {
+                            categories: name
+                        },
+						title: {
+							text: 'Space Utilisation Across Registered Car Parks'
+						},
+						fill: {
+							colors: ['#FFFFFF']
+						},
+						tooltip: {
+							enabled: false,
+						}
+                    }
+
+                    const chart = new ApexCharts(
+                        document.getElementById("graph"),
+                        options
+                    );
+
+                    chart.render();
+                }
+
+			}
+	})
+}
+
+
 function refreshUsers()
 {
 	const path ='/User-Management/display';
@@ -238,6 +306,7 @@ function refreshUsers()
 				console.log(rt);
 
 				refreshUserDataHandler(rt)
+
 			}
 		}
 	})
