@@ -1,0 +1,35 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <script src="sendMessage.js"></script>
+
+
+    </head>
+    <body>
+        <h1>Send a Message</h1>
+        <form id="message" action="/message"  onsubmit="sendMessage();">
+
+            <h3>Space request Form</h3>
+            <p>Required information is marked with an asterisk (*)</p><br>
+            <div id="cool">
+                <label for="car-park">Car Park*:</label>
+                <input type="text" class="input" name ="car-park" id="car-park"  required><br>
+
+                <label for= "space">Space ID (see map)</label>
+                <input type="text" class="input" name ="space" id="space"><br>
+            </div>
+
+            <input type= "button" class="button" value="Submit Request" onclick="sendMessage();"> <input type="reset" class="button" value="Reset Form"><br><br>
+
+        
+    </form>
+    </body>
+
+
+
+
+
+</html>

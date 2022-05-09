@@ -7,6 +7,7 @@ const register = require('./API/Routes/verfiy/register.js');
 const login = require('./API/Routes/verfiy/login.js');
 const requestSpace = require('./API/Routes/request-space.js');
 const users = require('./API/Routes/Users');
+const sendMessage = require('./API/Routes/sendMessage.js');
 
 app.use(express.static('testproject'));
 
@@ -35,6 +36,8 @@ app.use('/adminSend', admin);
 app.use('/Car-Parks', carParks);
 
 app.use('/space', requestSpace);
+
+app.use('/message', sendMessage);
 
 app.use('/User-Management', users)
 

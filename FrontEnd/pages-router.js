@@ -18,6 +18,9 @@ pages.get('/Home', function(req, res) {
 pages.get('/Space/request',function(req, res) {
     res.sendFile('./Pages/requestSpace.html', { root: __dirname })
 });
+pages.get('/message/send',function(req, res) {
+    res.sendFile('./Pages/sendMessage.html', { root: __dirname })
+});
 pages.get('/Space/pay',function(req, res) {
     res.sendFile('./Pages/payments.html', { root: __dirname })
 });

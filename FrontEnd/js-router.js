@@ -17,6 +17,10 @@ js.get('/Space/requestSpace.js',function(req, res) {
     res.sendFile('./JavaScript/requestSpace.js', { root: __dirname })
 });
 
+js.get('/message/sendMessage.js',function(req, res) {
+    res.sendFile('./JavaScript/sendMessage.js', { root: __dirname })
+});
+
 js.get('/User-Management/requestSpace.js',function(req, res) {
     res.sendFile('./JavaScript/wp.js', { root: __dirname })
 });
