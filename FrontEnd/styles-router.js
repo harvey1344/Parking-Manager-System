@@ -15,6 +15,10 @@ styles.get('/Space/style.css', function(req, res) {
     res.sendFile('./styles/style.css', { root: __dirname })
 });
 
+styles.get('/message/style.css', function(req, res) {
+    res.sendFile('./styles/style.css', { root: __dirname })
+});
+
 styles.get('/User-Management/style.css', function(req, res) {
     res.sendFile('./styles/style.css', { root: __dirname })
 });
