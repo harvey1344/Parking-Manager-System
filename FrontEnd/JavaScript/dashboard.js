@@ -72,7 +72,7 @@ const searchForSpace =(db, name)=>
               }
             
               space.carPark=db[i]._name;
-              spaceFoundHandler(space);
+              spaceFoundHandler(space, "http://localhost:5000/Home/arrive");
               return 1;
             }
           }
@@ -80,11 +80,11 @@ const searchForSpace =(db, name)=>
         return 0;
 }
 
-const spaceFoundHandler= (space)=>
+const spaceFoundHandler= (space, url)=>
 {
   console.log(space);
   //send post request to update db
-  fetch("http://localhost:5000/Home/arrive", {
+  fetch(url, {
      
     // Adding method type
     method: "PATCH",
@@ -112,4 +112,71 @@ const spaceFoundHandler= (space)=>
 })
 }
 
+const submitDepart= ()=>
+{
+  //Search Car Park for users space
+  fetch('/CDB')
+  .then(response => response.json())
+  .then(data => 
+    {
+      let name= getCookie('username');
+      let db= data.carParks;
+      let code= searchForSpaceB(db, name)
+      switch (code)
+      {
+        case 0:
+          {
+            alert("Please book a space")
+            break;
+          }
+        case 1:
+          {
+            console.log('Success')
+            break;
+          }
+        case 2:
+          {
+            alert("You dont have a space")
+            break;
+          }
+        default:
+        {
+          alert("An unexpected error occuried")
+        }
+        
+      }
 
+     
+      
+      
+
+
+      
+      
+    });
+
+}
+
+const searchForSpaceB =(db, name)=>
+{
+  for (let i=0 ;i< db.length; i++)
+        {
+          let carPark=db[i]._spaces;
+          for (let j=0; j <carPark.length;j++)
+          {
+            let space=carPark[j];
+            if (space._isBooked===name)
+            {
+              if (!(space._occupied))
+              {
+                return 2;
+              }
+            
+              space.carPark=db[i]._name;
+              spaceFoundHandler(space,"http://localhost:5000/Home/depart");
+              return 1;
+            }
+          }
+        }
+        return 0;
+}
