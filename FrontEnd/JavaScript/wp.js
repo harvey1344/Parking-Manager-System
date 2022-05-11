@@ -264,10 +264,36 @@ function displayGraph()
                                 data: data
                             }],
                         xaxis: {
-                            categories: name
-                        },
+							categories: name,
+							title: {
+								text: 'Car Parks',
+								style: {
+									fontSize: '12px',
+									fontFamily: 'Helvetica, Arial, sans-serif',
+									fontWeight: 600,
+								},
+							},
+						},
+						yaxis: {
+							min: 0,
+							max: 100,
+							title: {
+								text: 'Utilisation (%)',
+								rotate: -90,
+								style: {
+									fontSize: '12px',
+									fontFamily: 'Helvetica, Arial, sans-serif',
+									fontWeight: 600,
+								},
+							},
+							tooltip: {
+								enabled: true,
+								offsetX: 0,
+							},
+
+						},
 						title: {
-							text: 'Space Utilisation Across Registered Car Parks'
+							text: 'Percentage Space Utilisation Across Registered Car Parks'
 						},
 						fill: {
 							colors: ['#FFFFFF']

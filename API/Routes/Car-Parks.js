@@ -245,7 +245,8 @@ carParks.post('/graph', jsonParser, (req, res)=> {
                     }
                 }
                 // might be problematic
-                spaceArray.push(capacity[i] - count);
+                // Percentage of Car Park utilisation
+                spaceArray.push(((capacity[i] - count)/capacity[i]) * 100);
             }
 
             for(let i = 0; i < nameData.length; i++){

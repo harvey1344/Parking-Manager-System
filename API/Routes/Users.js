@@ -15,7 +15,7 @@ users.post('/remove', jsonParser, (req, res)=>
     {
         fs.readFile(path, (err, data)=>
         {
-            console.log('usersName: ' + usersName);
+            //console.log('usersName: ' + usersName);
             if (err){console.log('error')}
             else{
                 let obj= JSON.parse(data);
