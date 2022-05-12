@@ -6,7 +6,11 @@ const sendRequest= ()=>
     let carpark= document.getElementById('request').elements[0].value;
     let space= document.getElementById('request').elements[1].value;
     let time= document.getElementById('request').elements[2].value;
-    console.log(time);
+    if (time>240)
+    {
+      alert("Max time 10 days (240 hours)")
+      return;
+    }
 
     fetch("http://localhost:5000/space", {
      
