@@ -28,6 +28,10 @@ pages.get('/Space/pay',function(req, res) {
 pages.get('/Admin', function(req, res) {
     res.sendFile('./Pages/adminDashboard.html', { root: __dirname })
 });
+pages.get('/Space/admin', function(req, res) {
+    res.sendFile('./Pages/adminSpace.html', { root: __dirname })
+});
+
 
 pages.get('/Car-Parks', function(req, res) {
     res.sendFile('./Pages/carParkList.html', { root: __dirname })
