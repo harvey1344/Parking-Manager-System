@@ -8,7 +8,17 @@ const sendRequest= ()=>
     let time= document.getElementById('request').elements[2].value;
     if (time>240)
     {
-      alert("Max time 10 days (240 hours)")
+        let alertPara = document.createElement('p');
+        alertPara.textContent = 'Max time 10 days (240 hours)';
+        alertPara.style.cssText = 'color: red';
+        alertPara.style.textAlign = 'center';
+        alertPara.style.backgroundColor = '#ffc1cc';
+        alertPara.style.borderStyle = 'solid';
+        alertPara.style.borderWidth = 'thin';
+        alertPara.style.borderColor = '#ff949a';
+        let resetElement = document.querySelector('p');
+        resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+        resetButton.removeEventListener('click', onResetClick);
       return;
     }
 
@@ -31,7 +41,7 @@ const sendRequest= ()=>
  .then(function(res){
    if(res.statusText=== "Not Found")
    {
-     alert("Sprry space not found")
+     alert("Sorry space not found")
      return
    }
    else
