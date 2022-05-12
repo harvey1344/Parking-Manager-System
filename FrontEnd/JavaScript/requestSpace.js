@@ -104,3 +104,56 @@ function setCookie(cname, cvalue, exdays) {
     }
     return "";
   }
+  const adminRequest= ()=>
+{
+    let carpark= document.getElementById('request').elements[0].value;
+    let space= document.getElementById('request').elements[1].value;
+    
+
+    fetch("http://localhost:5000/space/Admin", {
+     
+    // Adding method type
+    method: "PATCH",
+    // Adding body or contents to send
+    body: JSON.stringify({
+        carpark: carpark,
+        spaceID: space,
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    
+})
+ .then(function(res){
+   if (res.ok)
+   {
+     console.log(res);
+     spaceSuccess();
+   }
+   else if (res.status=404)
+   {
+     alert("Either carpark or space couldnt be located\nPlease check your query")
+   }
+   
+  
+
+ })
+
+.catch(function(res){ console.log(res) })
+
+}
+function spaceSuccess()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'Space reserved';
+	alertPara.style.cssText = 'color: green';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#D3FFCC';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = 'green';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
