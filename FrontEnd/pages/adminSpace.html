@@ -1,0 +1,54 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
+        <script src= "wp.js" defer></script>
+        <script src="requestSpace.js" defer></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    </head>
+    <body>
+    <nav>
+        <ul>
+            <li><a href="/Home">Home</a></li>
+            <li><a href="/Space/request">Request Space</a></li>
+            <li><a href="MESSAGES TO FILL LATER UPON CREATION">Messages</a></li>
+            <li><a href="/">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Request a Space</h1>
+        <form id="request" action="/space"  onsubmit="sendRequest();">
+
+            <h3>Space request Form</h3>
+            <p>Required information is marked with an asterisk (*)</p><br>
+            <div id="cool">
+                <label for="car-park">Car Park*:</label>
+                <input type="text" class="input" name ="car-park" id="car-park"  required><br>
+
+                <label for= "space">Space ID (see availability table below)</label>
+                <input type="text" class="input" name ="space" id="space" required><br>
+
+            </div>
+
+            <input type= "button" class="button" value="Submit Request" onclick="adminRequest();"> <input type="reset" class="button" value="Reset Form">
+    </form>
+    </main>
+        <div id = "textFill"></div>
+
+
+        <button id="refreshFunctionButton" onclick="refreshCarParks()">Car Park Availability</button><br>
+        <a href="/Home"> Back </a>
+    </body>
+
+
+
+
+
+</html>
