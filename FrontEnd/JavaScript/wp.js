@@ -64,6 +64,21 @@ function carParkExists()
 	resetButton.removeEventListener('click', onResetClick);
 }
 
+function userBooked()
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = 'Cannot remove a user who already has a space booked/occupied!';
+	alertPara.style.cssText = 'color: red';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
+
 function badPark()
 {
 	let alertPara = document.createElement('p');
@@ -537,6 +552,9 @@ function post(path, data)
 				}
 				else if (rt=== 'ok') {
 					removalSuccessUser();
+				}
+				if (rt === 'found user'){
+					userBooked();
 				}
 			}
 
