@@ -1,6 +1,14 @@
+/*
+ Javascript file containing functions for requesting a space 
+*/
 
-console.log("workign")
-console.log(getCookie('test'));
+
+/*
+ Function to send data to server to find a deal with a space request
+ Gets data from form on the DOM and the sends to backend using fetch()
+ A space object is returned and saved into cookies then user is relocated to payments
+ Note- if returned is booked or occupied, reqesut unsuccessful and page reloaded 
+*/
 const sendRequest= ()=>
 {
     let carpark= document.getElementById('request').elements[0].value;
@@ -13,17 +21,7 @@ const sendRequest= ()=>
     }
     if (time>240)
     {
-        let alertPara = document.createElement('p');
-        alertPara.textContent = 'Max time 10 days (240 hours)';
-        alertPara.style.cssText = 'color: red';
-        alertPara.style.textAlign = 'center';
-        alertPara.style.backgroundColor = '#ffc1cc';
-        alertPara.style.borderStyle = 'solid';
-        alertPara.style.borderWidth = 'thin';
-        alertPara.style.borderColor = '#ff949a';
-        let resetElement = document.querySelector('p');
-        resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
-        resetButton.removeEventListener('click', onResetClick);
+      tooLong();
       return;
     }
 
@@ -66,7 +64,6 @@ const sendRequest= ()=>
   }
   else 
   {
-    //set cookies ugh
     console.log(getCookie('username'))
     document.cookie = "spaceID= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
     document.cookie = "carPark= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
@@ -86,7 +83,7 @@ const sendRequest= ()=>
 
 }
 
-
+//helper fucntion to set cokkie 
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -94,6 +91,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
+  //helper fucntion to get specific cookie from cookie text fiele
   function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -109,7 +107,10 @@ function setCookie(cname, cvalue, exdays) {
     }
     return "";
   }
-  const adminRequest= ()=>
+
+
+//Function top send admin space request (reserve) to backend usiing fetch
+const adminReserve= ()=>
 {
     let carpark= document.getElementById('request').elements[0].value;
     let space= document.getElementById('request').elements[1].value;
@@ -123,6 +124,47 @@ function setCookie(cname, cvalue, exdays) {
     body: JSON.stringify({
         carpark: carpark,
         spaceID: space,
+        type: 'add'
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    
+})
+ .then(function(res){
+   if (res.ok)
+   {
+     console.log(res);
+     spaceSuccess();
+   }
+   else if (res.status=404)
+   {
+     alert("Either carpark or space couldnt be located\nPlease check your query")
+   }
+  
+ })
+
+.catch(function(res){ console.log(res) })
+
+}
+
+//Function top send admin space request (release) to backend using fetch
+const adminRelease= ()=>
+{
+    let carpark= document.getElementById('request').elements[0].value;
+    let space= document.getElementById('request').elements[1].value;
+    
+
+    fetch("http://localhost:5000/space/Admin", {
+     
+    // Adding method type
+    method: "PATCH",
+    // Adding body or contents to send
+    body: JSON.stringify({
+        carpark: carpark,
+        spaceID: space,
+        type: 'remove'
     }),
     // Adding headers to the request
     headers: {
@@ -148,10 +190,12 @@ function setCookie(cname, cvalue, exdays) {
 .catch(function(res){ console.log(res) })
 
 }
+
+//update page on success request (admin)
 function spaceSuccess()
 {
 	let alertPara = document.createElement('p');
-	alertPara.textContent = 'Space reserved';
+	alertPara.textContent = 'Success';
 	alertPara.style.cssText = 'color: green';
 	alertPara.style.textAlign = 'center';
 	alertPara.style.backgroundColor = '#D3FFCC';
@@ -161,4 +205,21 @@ function spaceSuccess()
 	let resetElement = document.querySelector('p');
 	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
 	resetButton.removeEventListener('click', onResetClick);
+  
+}
+
+//update page with error booking (user)
+const tooLong =()=>
+{
+  let alertPara = document.createElement('p');
+  alertPara.textContent = 'Max time 10 days (240 hours)';
+  alertPara.style.cssText = 'color: red';
+  alertPara.style.textAlign = 'center';
+  alertPara.style.backgroundColor = '#ffc1cc';
+  alertPara.style.borderStyle = 'solid';
+  alertPara.style.borderWidth = 'thin';
+  alertPara.style.borderColor = '#ff949a';
+  let resetElement = document.querySelector('p');
+  resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+  resetButton.removeEventListener('click', onResetClick);
 }

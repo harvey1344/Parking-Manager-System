@@ -26,9 +26,9 @@
 
         <div class="myContainer">
         <h1>Block / Reserve Space</h1>
-        <form id="request" action="/space"  onsubmit="sendRequest();">
+        <form id="request" action="/space"  onsubmit="event.preventDefault()">
 
-            <h3>Space request Form</h3>
+            <h3>Space details</h3>
             <p>Required information is marked with an asterisk (*)</p><br>
             <div id="cool">
                 <label for="car-park">Car Park*:</label>
@@ -39,7 +39,9 @@
 
             </div>
 
-            <input type= "button" class="button" value="Submit Request" onclick="adminRequest();"> <input type="reset" class="button" value="Reset Form">
+            <input type= "button" class="button" value="Reserve" onclick="adminReserve();"> 
+            <input type= "button" class="button" value="Release" onclick="adminRelease();">
+             <input type="reset" class="button" value="Reset Form">
     </form>
     </main>
         <div id = "textFill"></div>

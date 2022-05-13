@@ -1,3 +1,10 @@
+/*
+ This file contains the fucntions for UPDATE on the occupied attribute of a space.
+ Functions working by getting the carpark name and space ID.
+ Convert db to an object the query the array using Arrays.findIndex and updating accordingly to to path
+ (Home/arrive, Home/depart)
+*/
+
 const dash = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -10,8 +17,7 @@ dash.patch('/arrive', jsonParser, (req, res)=>
     const carParkQuery= req.body.space.carPark;
     const spaceIndex=req.body.space._spaceID-1;
 
-    fs.readFile(path, (err, data)=>
-    {
+    fs.readFile(path, (err, data)=>{
         if (err){console.log(err)}
         else
         {
@@ -37,26 +43,18 @@ dash.patch('/arrive', jsonParser, (req, res)=>
                     if (err){console.log(err)};
                 })
                 res.send('OK');
-                
-            
-
-
             }
-
         }
     })
 
-    
-    
-
 })
+
 dash.patch('/depart', jsonParser, (req, res)=>
 {
     const carParkQuery= req.body.space.carPark;
     const spaceIndex=req.body.space._spaceID-1;
 
-    fs.readFile(path, (err, data)=>
-    {
+    fs.readFile(path, (err, data)=>{
         if (err){console.log(err)}
         else
         {
@@ -82,24 +80,10 @@ dash.patch('/depart', jsonParser, (req, res)=>
                 {
                     if (err){console.log(err)};
                 })
-                res.send('OK');
-                
-            
-
-
+                res.send('OK');   
             }
-
         }
     })
-
-    
-    
-
 })
-
-
-
-
-
 
 module.exports=dash;

@@ -1,3 +1,8 @@
+/*
+ This file contains the fucntions for reqeusting space for both users and admin
+*/
+
+
 const requestSpace = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -7,6 +12,13 @@ const fs= require('fs');
 
 
 
+/*
+ Function to send space data to client side to await payment for reserving space
+ Searches for space in the database using Arrays.findIndex and if succefull, searches for the requested space
+ If space found new object created with foundspace, carpark.name and calculated payment based of carpark base rate*duration of stay.
+ Send object in json form to be delt wiht in payments
+ Note- findIndex -1 or spaceID exceeds capacity then send client an error
+*/
 
 requestSpace.post('/', jsonParser, (req, res)=>
 {
@@ -58,6 +70,12 @@ requestSpace.post('/', jsonParser, (req, res)=>
 })
 })
 
+/*
+ Function to update space booking status to the username
+ Finds space from database, no error checking neeeded as assured space exists
+ updates isbooked field to truthy value "usernamee"
+*/
+
 
 requestSpace.post('/pay', jsonParser, (req, res)=>
 {
@@ -99,11 +117,18 @@ requestSpace.post('/pay', jsonParser, (req, res)=>
 
 })
 
+/*
+ Function for Admin to reserve or release a prior reserved space
+ Uses the same error checking as user verison, but doesnt check is space is booked as admin
+ has priority. Will UPDATE fields based on type value
+*/
+
+
 requestSpace.patch('/Admin', jsonParser, (req, res)=>
 {
-    console.log(req.body);
     const carParkQuery= req.body.carpark;
     const spaceQuery = req.body.spaceID;
+    const type = req.body.type;
     const path='./carPark.JSON';
 
     fs.readFile(path, (err, data)=>
@@ -130,9 +155,21 @@ requestSpace.patch('/Admin', jsonParser, (req, res)=>
             }
             space= carParkToEdit._spaces[index];
             space._spaceID= req.body.spaceID;
+            if (type==="add")
+            {
             space._isBooked= "Admin";
             space._occupied= "Admin";
-            console.log(carParkToEdit._spaces);
+            console.log(`${carParkToEdit._name} : ${space._spaceID} reserved`);
+            
+            }
+            else if (type=="remove")
+            {
+                space._isBooked= "false";
+                space._occupied= "false";
+                console.log(`${carParkToEdit._name} : ${space._spaceID} released`);
+            }
+
+            
             fs.writeFileSync(path,JSON.stringify(obj), (err)=>
                     {
                         if (err)
