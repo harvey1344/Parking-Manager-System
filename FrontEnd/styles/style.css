@@ -1,20 +1,21 @@
 body {
 	height: 100vh;
 	font-size: 18px;
-	background: #dfe4e4;
+	background: lightslategrey;
 }
 
 .myContainer
 {
 	width: 500px;
 	padding: 2.5rem;
-	margin: 1rem;
+	margin: 50px;
+	margin-left: 30%;
 	font-family: Helvetica;
 	font-size: 12px;
 	box-shadow: 0 0 75px
 	rgba(0, 0, 0, 0.2);
 	border-radius: 4px;
-	background: #ffffff;
+	background: lightgrey;
 }
 
 h3

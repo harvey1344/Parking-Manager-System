@@ -239,6 +239,10 @@ function displayGraph()
 {
 	const path ='/Car-Parks/graph';
 
+	document.getElementById("displayGraph").disabled = true;
+
+	document.getElementById("map").style.visibility = "hidden";
+
 	console.log('in refreshJSON')
 
 	$.ajax({
@@ -393,6 +397,29 @@ function refreshCarParks()
 {
 	const path ='/Car-Parks/display';
 
+	document.getElementById("map").style.visibility = "hidden";
+
+	console.log('in refreshJSON')
+
+	$.ajax({
+		url: path,
+		method: 'POST',
+		success: function (rt) {
+			if (path === '/Car-Parks/display') {
+				// if the server returns a response (exists) then accountExists function will be called in wp.js
+
+				console.log(rt);
+
+				refreshCarParkDataHandler(rt)
+			}
+		}
+	})
+}
+
+function refreshCarParks2()
+{
+	const path ='/Car-Parks/display';
+
 	console.log('in refreshJSON')
 
 	$.ajax({
@@ -415,6 +442,7 @@ function refreshCarParkDataHandler(data){
 
 	// disallows multiple clicks of button
 	document.getElementById("refreshFunctionButton").disabled = true;
+
 
 	// textFill is an empty div in userList.html placed there so we can append elements to it
 	const divTextFill = document.getElementById('textFill');
