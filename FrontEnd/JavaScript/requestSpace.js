@@ -6,6 +6,11 @@ const sendRequest= ()=>
     let carpark= document.getElementById('request').elements[0].value;
     let space= document.getElementById('request').elements[1].value;
     let time= document.getElementById('request').elements[2].value;
+    if (carpark==="" || space==="" || time ==="")
+    {
+      alert("all fields need to be filled")
+      return;
+    }
     if (time>240)
     {
         let alertPara = document.createElement('p');
