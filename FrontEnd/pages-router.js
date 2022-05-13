@@ -57,5 +57,9 @@ pages.get('/User-Management/remove', function(req, res) {
 pages.get('/Thanks', function(req, res) {
     res.sendFile('./Pages/alert.html', { root: __dirname })
 });
+pages.get('/Map', function(req, res) {
+    res.sendFile('./Pages/UEAMap.png', { root: __dirname })
+});
+
 
 module.exports=pages;

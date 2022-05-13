@@ -23,7 +23,10 @@
         </ul>
     </nav>
     <main>
+
+        <div class="myContainer">
         <h1>Request a Space</h1>
+
         <form id="request" action="/space"  onsubmit="sendRequest();">
 
             <h3>Space request Form</h3>
@@ -40,11 +43,12 @@
 
             <input type= "button" class="button" value="Submit Request" onclick="sendRequest();"> <input type="reset" class="button" value="Reset Form">
     </form>
+        </div>
     </main>
         <div id = "textFill"></div>
 
 
-        <button id="refreshFunctionButton" onclick="refreshCarParks()">Car Park Availability</button><br>
+        <button id="refreshFunctionButton" onclick="refreshCarParks2()">Car Park Availability</button><br>
         <a href="/Home"> Back </a>
     </body>
 
