@@ -240,7 +240,7 @@ carParks.post('/display', jsonParser, (req, res)=> {
 
 /*
  Function to send data to client upon GET!!! request not POST for graphical view 
- //ALEX add comment
+ //Graph works out percentage of car parks being utilised
 
 */
 
@@ -270,7 +270,6 @@ carParks.post('/graph', jsonParser, (req, res)=> {
                         count ++;
                     }
                 }
-                // might be problematic
                 // Percentage of Car Park utilisation
                 spaceArray.push(((capacity[i] - count)/capacity[i]) * 100);
             }

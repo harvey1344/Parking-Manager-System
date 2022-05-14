@@ -164,8 +164,8 @@ requestSpace.patch('/Admin', jsonParser, (req, res)=>
             }
             else if (type=="remove")
             {
-                space._isBooked= "false";
-                space._occupied= "false";
+                space._isBooked= false;
+                space._occupied= false;
                 console.log(`${carParkToEdit._name} : ${space._spaceID} released`);
             }
 
