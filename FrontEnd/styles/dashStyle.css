@@ -47,7 +47,8 @@ body { /*sets up the main body element on each page to have a colour of white
   well as setting the text font and background image*/
     color: white;
     font-family: 'Roboto', "Verdana" , sans-serif;
-    background: linear-gradient(to right, #654ea3, #eaafc8);
+    /*background: linear-gradient(to right, #654ea3, #eaafc8);*/
+    background: lightslategrey;
     /*background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);*/
     background-size: cover;
 }

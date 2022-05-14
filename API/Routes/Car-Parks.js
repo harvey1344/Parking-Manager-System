@@ -1,10 +1,23 @@
+/*
+ This file contains functions for the CRUD operations of the carpark database (carPark.JSON)
+ using the defualt route of (/Car-Parks)
+*/
+
 const carParks = require('express').Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const classes= require('./Classes');
 
 
-//add
+/*
+ Function to add a carpark to our JSON database
+ Attributes collected by the request. Database read and convetted to object, 
+ new carpark added onto the existed object and then rewrittren.
+ Note- if carpark name exists in database then send error back to client
+ Note- if no carpakr file found, then new database is created
+ Note- if any field in request empty, error sent back.
+
+*/
 carParks.post('/add', jsonParser, (req, res)=>
 {
     const path='./carPark.JSON';
@@ -78,11 +91,17 @@ carParks.post('/add', jsonParser, (req, res)=>
 
 })
 
+/*
+ Function to remove car park from the database.
+ Reads car park name from the request, maps each carpark name to new array and gets index
+ Note- -1 returned from .includes() indicates name doesnt exist send error to client
+ Use Arrays.splice to take our data from arryay then rewrite file
+*/
+
 carParks.post('/remove', jsonParser, (req, res)=>
 {
     const fs = require('fs');
     const path='./carPark.JSON';
-
     const parkName = req.body.name;
 
     if (fs.existsSync(path))
@@ -90,44 +109,44 @@ carParks.post('/remove', jsonParser, (req, res)=>
         fs.readFile(path, (err, data)=>
         {
             if (err){console.log('error')}
-            else{
+            else
+            {
                 let obj= JSON.parse(data);
                 let arr = obj.carParks;
                 const nameData= arr.map(x => x._name);
 
-                // if it includes the park name we want to find
-                if ((nameData.includes(parkName))) {
-
-                    // find the idx of the thing to be removed in namedata
+                if ((nameData.includes(parkName))) 
+                {
                     let carParkIndex = nameData.indexOf(parkName);
-                    //console.log('index of thing to be removed: ' + carParkIndex);
-                    // remove from that corresponding idx
                     arr.splice(carParkIndex,1);
 
-
-                    fs.writeFileSync(path, JSON.stringify(obj), (err) => {
-                        if (err) {
-                            console.log("error")
-                            return;
-                        }
+                    fs.writeFileSync(path, JSON.stringify(obj), (err) => 
+                    {
+                        if (err) {console.log("error")
+                        return;}
 
                     })
                     console.log(`${parkName._name} removed from database`)
                     res.send('ok');
                 }
-                else {
+                else
+                {
                     console.log('does not contain parkName entered')
                     res.send('badData')
                 }
             }
         })
     }
-    else
-    {
-        console.log('No car park file exists')
-    }
+    else{console.log('No car park file exists')}
 
 })
+
+
+/*
+ Function to send data to client upon GET!!! request not POST- alex for stat view
+ //ALEX add comment
+
+*/
 
 carParks.post('/display', jsonParser, (req, res)=> {
 {
@@ -217,6 +236,13 @@ carParks.post('/display', jsonParser, (req, res)=> {
         })
     }
 }})
+
+
+/*
+ Function to send data to client upon GET!!! request not POST for graphical view 
+ //ALEX add comment
+
+*/
 
 carParks.post('/graph', jsonParser, (req, res)=> {
     {

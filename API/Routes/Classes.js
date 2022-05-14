@@ -1,3 +1,7 @@
+/*
+ This file contains class defintions for car park and space objects for use in the backend CRUD system
+*/
+
 class parkingSpace {
   constructor(spaceID ) {
     this._spaceID = spaceID;
