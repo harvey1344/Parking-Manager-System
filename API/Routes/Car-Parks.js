@@ -143,8 +143,8 @@ carParks.post('/remove', jsonParser, (req, res)=>
 
 
 /*
- Function to send data to client upon GET!!! request not POST- alex for stat view
- //ALEX add comment
+
+ Function to calculate a set of car park statistics used to generate a car park overview
 
 */
 
@@ -170,19 +170,6 @@ carParks.post('/display', jsonParser, (req, res)=> {
                 const priceData= arr.map(x => x._basePrice);
                 const spaceData= arr.map(x => x._spaces);
 
-                // test code - please do not remove in case I need to look at this again later
-
-                /*console.log("spacedata.len: " + spaceData.length)
-                console.log("spacedata[0][0]: " + spaceData[0][0]._isBooked);
-                console.log("spacedata[0]: ");
-                console.log(spaceData[0]);
-                console.log("spacedata[0].len: " + spaceData[0].length)
-                console.log("spacedata[1]: ");
-                console.log(spaceData[1]);
-                console.log("spacedata[2]: ");
-                console.log(spaceData[2]);
-                console.log("spacedata[0].len: " + spaceData[2].length)*/
-
 
                 // appends each car parks' unbooked spaces to an array.
                 let numArray = [];
@@ -191,25 +178,22 @@ carParks.post('/display', jsonParser, (req, res)=> {
                     let count = 0;
                     for(let j = 0; j < spaceData[i].length; j++){
                         if(spaceData[i][j]._isBooked === false){
-                            //console.log('i: ' + i);
-                            //console.log('j: ' + j);
-                            //console.log('false');
+                            // counts unbooked spaces
                             count ++;
-                            //console.log('count: ' + count);
                         }
                     }
                     numArray.push(count);
                 }
-                //console.log('numArray: ' + numArray);
 
 
                 let carParkID = [];
                 for(let i = 0; i < spaceData.length; i++){
-                    //console.log('i: ' + i);
+
                     let str = '';
                     let count = 0;
                     for(let j = 0; j < spaceData[i].length; j++){
                         if(spaceData[i][j]._isBooked === false){
+                            // creates a list of unbooked space IDs
                             str += spaceData[i][j]._spaceID + ', ';
                             count ++
                         }
@@ -239,8 +223,9 @@ carParks.post('/display', jsonParser, (req, res)=> {
 
 
 /*
- Function to send data to client upon GET!!! request not POST for graphical view 
- //Graph works out percentage of car parks being utilised
+
+
+ Calculates a percentage of car parks utilisation
 
 */
 

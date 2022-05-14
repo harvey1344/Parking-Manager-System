@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script src= "messaging.js" defer></script>
+    <script src= "wp.js" defer></script>
+
+    <title>Messaging - Message a User</title>
+
+</head>
+
+<body>
+<main>
+
+    <div class="myContainer">
+
+        <form id = "msg" action="/Messaging" onsubmit="saveMessage()">
+
+            <h3>Messaging</h3>
+            <p>Required information is marked with an asterisk (*)</p><br>
+            <div class="cool">
+                <label for="name">Name of User to message (Case sensitive):*</label>
+                <input required type="text" class="input" name ="name" id="name" accesskey="N" placeholder="Enter the Name of a user you wish to message" /><br>
+
+                <label id = "changing" for="name">Message to send:*
+                    <textarea placeholder="Enter your message here!" name = "message" id = "message"> </textarea>
+                </label><br>
+            </div>
+
+            <input type= "button" class="button" value="Send Message" onclick="saveMessage()">
+            <input type= "button" class="button" value="Receive Message" onclick="receiveMessage()">
+            <input type="reset" class= "button" value="Reset Form"><br><br>
+
+
+        </form><br>
+    </div>
+    <div id = "textFill"></div>
+    <button id="refreshFunctionButton" onclick="refreshUsers()">Registered user list</button><br>
+    <a class="hyper" href="/Admin"> Return to Dashboard</a><br>
+</main>
+</body>
+</html>

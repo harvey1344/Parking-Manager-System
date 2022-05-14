@@ -112,6 +112,11 @@ a
 	color: black;
 }
 
+textarea{
+	width: 99%;
+	height: 150px;
+}
+
 
 #textFill{
 	margin-top: 35px;
@@ -186,4 +191,8 @@ a
 	#box-shadow: 0 0 10px;
 
 	color: black;
+}
+
+H5{
+	font-size: 1px;
 }

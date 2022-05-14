@@ -1,5 +1,35 @@
 
 // called in registration if the account being added already exists
+
+function messageSuccess(text)
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = text;
+	alertPara.style.cssText = 'color: green';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#D3FFCC';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = 'green';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
+
+function messageFail(text)
+{
+	let alertPara = document.createElement('p');
+	alertPara.textContent = text;
+	alertPara.style.cssText = 'color: red';
+	alertPara.style.textAlign = 'center';
+	alertPara.style.backgroundColor = '#ffc1cc';
+	alertPara.style.borderStyle = 'solid';
+	alertPara.style.borderWidth = 'thin';
+	alertPara.style.borderColor = '#ff949a';
+	let resetElement = document.querySelector('p');
+	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
+	resetButton.removeEventListener('click', onResetClick);
+}
 function accountExists()
 {
 	let alertPara = document.createElement('p');
@@ -181,7 +211,6 @@ function saveLogin()
 	console.log(data);
 	// for use in the post command
 	const path = '/loginSend'
-
 	// calls post method with the path and the form data
 	post(path,data)
 }
@@ -233,6 +262,92 @@ function removeUser()
 
 	// calls post method with the path and the form data
 	post(path,data)
+}
+
+function saveMessage()
+{
+	// collects data from the form
+	const form = document.querySelector("form");
+	const formData = new FormData(form);
+	console.log(formData);
+	// create an object from the form data
+	const data = Object.fromEntries(formData);
+	console.log('Data from form: ' + data);
+	// for use in the post command
+	const path = '/user-management/message'
+	// calls post method with the path and the form data
+
+	post(path,data)
+}
+
+function getCookie(name)
+{
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+
+function userSaveMessage()
+{
+	let userElement= document.getElementById('titleBox2');
+	userElement.innerHTML= `<h5>${getCookie('username')}</h5>`
+	let user = document.getElementById('titleBox2').textContent;
+	console.log('current user: ' + user);
+
+	// collects data from the form
+	const form = document.querySelector("form");
+	const formData = new FormData(form);
+	console.log(formData);
+	// create an object from the form data
+	const data = Object.fromEntries(formData);
+	console.log('Data from form: ' + data);
+	// for use in the post command
+	const path = '/User-management/userMessage'
+
+
+	// calls post method with the path and the form data
+
+	postMessageToAdmin(path,data,user);
+}
+
+function receiveMessage()
+{
+	// collects data from the form
+	const form = document.querySelector("form");
+	const formData = new FormData(form);
+	console.log(formData);
+	// create an object from the form data
+	const data = Object.fromEntries(formData);
+	console.log('Data from form: ' + data);
+	// for use in the post command
+	const path = '/user-management/receive'
+
+	// calls post method with the path and the form data
+
+	post(path,data)
+}
+
+function userReceiveMessage()
+{
+	let userElement= document.getElementById('titleBox2');
+	userElement.innerHTML= `<h5>${getCookie('username')}</h5>`
+	let user = document.getElementById('titleBox2').textContent;
+	console.log('current user: ' + user);
+	// collects data from the form
+	const form = document.querySelector("form");
+	const formData = new FormData(form);
+	console.log(formData);
+	// create an object from the form data
+	const data = Object.fromEntries(formData);
+	console.log('Data from form: ' + data);
+	// for use in the post command
+	const path = '/user-management/userReceive'
+
+	// calls post method with the path and the form data
+
+	postMessageToAdmin(path,data,user)
 }
 
 function displayGraph()
@@ -571,8 +686,6 @@ function post(path, data)
 				}
 			}
 
-		
-
 			else if (path === '/User-Management/remove'){
 				// if the server does not return a response then we call badLogin() function within wp.js
 				if (rt==='noMatch') {
@@ -586,15 +699,88 @@ function post(path, data)
 				}
 			}
 
-			
+			else if (path === '/user-management/message'){
+				// if the server does not return a response then we call badLogin() function within wp.js
+				if (rt==='noMatch') {
+					badUser();
+				}
+				else if (rt=== 'ok') {
+					messageSuccess('Message successfully sent to user!');
+				}
+			}
+
+
+			else if (path === '/user-management/receive'){
+				// if the server does not return a response then we call badLogin() function within wp.js
+				if (rt==='noMatch') {
+					messageFail('No message history with this user');
+				}
+				else {
+					console.log('rt was: ' + rt);
+					let changeEle = document.getElementById('changing').textContent = 'Previous Message Was:'
+					document.getElementById('changing').style.color = 'red';
+					let textArea = document.createElement("textarea");
+					document.getElementById('changing').appendChild(textArea);
+					textArea.textContent = rt;
+				}
+			}
+
+			else if (path === '/User-management/userMessage'){
+
+				if (rt === 'ok') {
+					messageSuccess('Message successfully sent to admin!');
+				}
+			}
+
 		}, error: function(){
-			console.log('eorr')
+			console.log('error')
 			alert("Error connecting to the server")
 		}
 	})
 }
 
+function postMessageToAdmin(path, data, user)
+{
+	console.log(path)
 
+	$.ajax ({
+		url: path,
+		data: JSON.stringify({
+			data: data,
+			user: user
+		}),
+		method: 'POST',
+		contentType: 'application/json',
+		success: function (rt) {
+
+			if (path === '/User-management/userMessage'){
+				if (rt === 'ok') {
+					messageSuccess('Message successfully sent to admin!');
+				}
+			}
+
+			else if (path === '/user-management/userReceive'){
+
+				if (rt==='noMatch') {
+					messageFail('No message history with this user');
+				}
+				else {
+					console.log('rt was: ' + rt);
+					let changeEle = document.getElementById('changing').textContent = 'Previous Message Was:'
+					document.getElementById('changing').style.color = 'red';
+					let textArea = document.createElement("textarea");
+					document.getElementById('changing').appendChild(textArea);
+					textArea.textContent = rt;
+				}
+			}
+
+
+		}, error: function(){
+			console.log('error')
+			alert("Error connecting to the server")
+		}
+	})
+}
 
 function saveCarPark()
 {
@@ -655,6 +841,3 @@ form.addEventListener("click",function(event){
 	event.preventDefault()
   });
 
-
-
-    

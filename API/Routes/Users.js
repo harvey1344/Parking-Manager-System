@@ -148,4 +148,341 @@ users.post('/remove', jsonParser, (req, res)=> {
         }
     })
 
-module.exports=users;
+users.post('/message', jsonParser, (req, res) => {
+    console.log('in message in server');
+
+    const path = './messages.JSON';
+    const userPath = './userDB.JSON';
+
+    const username = req.body.name;
+    const message = req.body.message;
+
+    console.log('user: ' + username);
+    console.log('message: ' + message);
+
+    let msgDetails =
+        {
+            username,
+            message
+        };
+
+    const fs = require('fs');
+
+    fs.readFile(userPath, (usrFileErr, usrFileData) => {
+        if (usrFileErr) {
+            console.log('error')
+        } else {
+            let obj = JSON.parse(usrFileData);
+            let arr = obj.details;
+            const nameData = arr.map(x => x.username);
+            console.log('namedata v')
+            console.log(nameData);
+
+            if(nameData.includes(username)) {
+
+                if (fs.existsSync(path)) {
+                    fs.readFile(path, (err, data) => {
+                        if (err) {
+                            console.log('error')
+                        } else {
+                            let obj = JSON.parse(data);
+                            let arr = obj.data;
+                            console.log('arr is below v')
+                            console.log(arr);
+
+                            let idx = arr.findIndex(p => p.username === username);
+
+                            if(idx === -1){
+                                console.log('-1');
+                                let newUser =
+                                    {
+                                        username,
+                                        message
+                                    }
+                                arr.push(newUser);
+                            }
+                            else {
+                                console.log('idx was found: ' + idx);
+
+
+                                const userRecordToSearch = arr[idx];
+
+                                console.log('user record to search: v')
+                                console.log(userRecordToSearch);
+
+                                userRecordToSearch.message = message;
+
+                                console.log('arr is below v')
+                                console.log(arr);
+                            }
+
+                            fs.writeFileSync(path,JSON.stringify(obj), (err)=>
+                            {
+                                if (err)
+                                {
+                                    console.log("error")
+                                }
+
+                            })
+
+                            res.send('ok');
+                        }
+                    })
+                } else {
+                    let messageDetails =
+                        {
+                            word: 'messages',
+                            data: msgDetails
+                        };
+                    fs.writeFileSync(path, JSON.stringify(messageDetails), (err) => {
+                        if (err) {
+                            console.log("error")
+                        }
+                    })
+                }
+
+            }
+            else{// if user not in users.JSON
+                console.log('name not in file');
+                res.send('noMatch')
+            }
+
+    }})
+
+    users.post('/message', jsonParser, (req, res) => {
+        console.log('in message in server');
+
+        const path = './messages.JSON';
+        const userPath = './userDB.JSON';
+
+        const username = req.body.name;
+        const message = req.body.message;
+
+        console.log('user: ' + username);
+        console.log('message: ' + message);
+
+        let msgDetails =
+            {
+                username,
+                message
+            };
+
+        const fs = require('fs');
+
+        fs.readFile(userPath, (usrFileErr, usrFileData) => {
+            if (usrFileErr) {
+                console.log('error')
+            } else {
+                let obj = JSON.parse(usrFileData);
+                let arr = obj.details;
+                const nameData = arr.map(x => x.username);
+                console.log('namedata v')
+                console.log(nameData);
+
+                if(nameData.includes(username)) {
+
+                    if (fs.existsSync(path)) {
+                        fs.readFile(path, (err, data) => {
+                            if (err) {
+                                console.log('error')
+                            } else {
+                                let obj = JSON.parse(data);
+                                let arr = obj.data;
+                                console.log('arr is below v')
+                                console.log(arr);
+
+                                let idx = arr.findIndex(p => p.username === username);
+
+                                if(idx === -1){
+                                    console.log('-1');
+                                    let newUser =
+                                        {
+                                            username,
+                                            message
+                                        }
+                                    arr.push(newUser);
+                                }
+                                else {
+                                    console.log('idx was found: ' + idx);
+
+
+                                    const userRecordToSearch = arr[idx];
+
+                                    console.log('user record to search: v')
+                                    console.log(userRecordToSearch);
+
+                                    userRecordToSearch.message = message;
+
+                                    console.log('arr is below v')
+                                    console.log(arr);
+                                }
+
+                                fs.writeFileSync(path,JSON.stringify(obj), (err)=>
+                                {
+                                    if (err)
+                                    {
+                                        console.log("error")
+                                    }
+
+                                })
+
+                                res.send('ok');
+                            }
+                        })
+                    } else {
+                        let messageDetails =
+                            {
+                                word: 'messages',
+                                data: msgDetails
+                            };
+                        fs.writeFileSync(path, JSON.stringify(messageDetails), (err) => {
+                            if (err) {
+                                console.log("error")
+                            }
+                        })
+                    }
+
+                }
+                else{// if user not in users.JSON
+                    console.log('name not in file');
+                    res.send('noMatch')
+                }
+
+            }})
+
+
+    });
+
+
+});
+
+
+    users.post('/receive', jsonParser, (req, res) => {
+    console.log('in receive in server');
+
+    const path = './messages.JSON';
+    const username = req.body.name;
+
+    console.log('user: ' + username);
+
+    const fs = require('fs');
+
+        fs.readFile(path, (err, data) => {
+            if (err) {
+                console.log('error')
+            } else {
+                let obj = JSON.parse(data);
+                let arr = obj.data;
+                console.log('arr is below v')
+                console.log(arr);
+
+                let idx = arr.findIndex(p => p.username === username);
+
+                if (idx === -1){
+                    res.send('noMatch');
+                }
+                else {
+                    const userRecordToSearch = arr[idx];
+                    res.send(userRecordToSearch.message);
+                }
+            }
+        })
+
+});
+
+
+users.post('/userMessage', jsonParser, (req, res) => {
+    console.log('in userMessage in server');
+
+    let username = req.body.user;
+    let message = req.body.data.message;
+
+    console.log('username: ' + username);
+    console.log('message: ' + message);
+
+    let path = './messages.JSON';
+
+    const fs = require('fs');
+    fs.readFile(path, (err, data) => {
+
+        if (err) {
+            console.log('error')
+        } else {
+            let obj = JSON.parse(data);
+            let arr = obj.data;
+            console.log('arr is below v')
+            console.log(arr);
+
+            let idx = arr.findIndex(p => p.username === username);
+
+            if(idx === -1){
+                console.log('-1');
+                let newUser =
+                    {
+                        username,
+                        message
+                    }
+                arr.push(newUser);
+            }
+            else {
+                console.log('idx was found: ' + idx);
+
+
+                const userRecordToSearch = arr[idx];
+
+                console.log('user record to search: v')
+                console.log(userRecordToSearch);
+
+                userRecordToSearch.message = message;
+
+                console.log('arr is below v')
+                console.log(arr);
+            }
+
+            fs.writeFileSync(path,JSON.stringify(obj), (err)=>
+            {
+                if (err)
+                {
+                    console.log("error")
+                }
+
+            })
+
+            res.send('ok');
+        }
+    })
+});
+
+users.post('/userReceive', jsonParser, (req, res) => {
+
+    const path = './messages.JSON';
+    const username = req.body.user;
+
+    console.log('user: ' + username);
+
+    const fs = require('fs');
+
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.log('error')
+        } else {
+            let obj = JSON.parse(data);
+            let arr = obj.data;
+            console.log('arr is below v')
+            console.log(arr);
+
+            let idx = arr.findIndex(p => p.username === username);
+
+            if (idx === -1){
+                res.send('noMatch');
+            }
+            else {
+                const userRecordToSearch = arr[idx];
+                res.send(userRecordToSearch.message);
+            }
+        }
+    })
+
+});
+
+    module.exports=users;
