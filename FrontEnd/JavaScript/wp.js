@@ -707,6 +707,9 @@ function post(path, data)
 				else if (rt=== 'ok') {
 					messageSuccess('Message successfully sent to user!');
 				}
+				else if (rt === 'no message'){
+					messageFail('Cannot send a message with no body!')
+				}
 			}
 
 
@@ -756,6 +759,9 @@ function postMessageToAdmin(path, data, user)
 			if (path === '/User-management/userMessage'){
 				if (rt === 'ok') {
 					messageSuccess('Message successfully sent to admin!');
+				}
+				if (rt === 'no message'){
+					messageFail('Cannot send a message with no body!');
 				}
 			}
 

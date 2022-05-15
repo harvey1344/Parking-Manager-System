@@ -89,30 +89,43 @@ users.post('/remove', jsonParser, (req, res)=> {
         const path = './userDB.JSON';
         const carParkPath = './carPark.JSON';
 
+        // if the file associated with the path exists, then:
         if (fs.existsSync(path)) {
+
+            // read the users file
             fs.readFile(path, (err, data) => {
+
+                // also read the car parks file
                 fs.readFile(carParkPath, (carParkErr, carParkData) => {
                     const dataArr = [];
                     if (err) {
                         console.log('error')
+
+                        // if no opening error then:
                     } else {
+
+                        // parse the JSON from the car park file
                         let car = JSON.parse(carParkData);
+                        // access the carParks variable of the JSON
                         let carr = car.carParks;
 
+                        // make a list of the spaces and car park names
                         const parkSpaceData = carr.map(x => x._spaces);
                         const parkNameData = carr.map(x => x._name);
 
                         let carParkID = [];
 
 
+                        // parse the JSON from the user file
                         let obj = JSON.parse(data);
                         let arr = obj.details;
 
+                        // make a list of the user names and passwords
                         const nameData = arr.map(x => x.username);
                         const passData = arr.map(x => x.password);
 
 
-                        // for every user
+                        // for every user, push name and pass to array
                         for (let i = 0; i < nameData.length; i++) {
                             // push their name and password to the array
                             dataArr.push(nameData[i]);
@@ -129,12 +142,13 @@ users.post('/remove', jsonParser, (req, res)=> {
                                 for (let k = 0; k < parkSpaceData[j].length; k++) {
                                     if (parkSpaceData[j][k]._isBooked === nameData[i]) {
 
+                                        // push each spaceID to an array and increment count
                                         dataArr.push(parkSpaceData[j][k]._spaceID);
                                         count++
                                     }
                                 }
 
-                            }
+                            } // if count is 0 then no empty space id could be found so push no spaces booked
                             if (count === 0) {
                                 dataArr.push('No spaces booked');
                             }
@@ -149,108 +163,109 @@ users.post('/remove', jsonParser, (req, res)=> {
     })
 
 users.post('/message', jsonParser, (req, res) => {
-    console.log('in message in server');
 
     const path = './messages.JSON';
     const userPath = './userDB.JSON';
-
+    // save the name of the user sending the message + the message itself into variables
     const username = req.body.name;
     const message = req.body.message;
 
-    console.log('user: ' + username);
-    console.log('message: ' + message);
+    if(message.toString().trim() === ''){
+        res.send('no message')
+    }
 
-    let msgDetails =
-        {
-            username,
-            message
-        };
+    else{
+        // save these two entries as msgDetails
+        let msgDetails =
+            {
+                username,
+                message
+            };
 
-    const fs = require('fs');
+        const fs = require('fs');
 
-    fs.readFile(userPath, (usrFileErr, usrFileData) => {
-        if (usrFileErr) {
-            console.log('error')
-        } else {
-            let obj = JSON.parse(usrFileData);
-            let arr = obj.details;
-            const nameData = arr.map(x => x.username);
-            console.log('namedata v')
-            console.log(nameData);
+        // read the user file
+        fs.readFile(userPath, (usrFileErr, usrFileData) => {
+            if (usrFileErr) {
+                console.log('error')
+            } else { // if no error with file then parse the content from the user file
+                let obj = JSON.parse(usrFileData);
+                // get the details field of the JSON user file
+                let arr = obj.details;
+                // get a list of usernames from user file
+                const nameData = arr.map(x => x.username);
 
-            if(nameData.includes(username)) {
+                // if the user file contains the same username in the same case as username posted (line 171) then
+                if (nameData.includes(username)) {
 
-                if (fs.existsSync(path)) {
-                    fs.readFile(path, (err, data) => {
-                        if (err) {
-                            console.log('error')
-                        } else {
-                            let obj = JSON.parse(data);
-                            let arr = obj.data;
-                            console.log('arr is below v')
-                            console.log(arr);
+                    // check if file exists
+                    if (fs.existsSync(path)) {
+                        // read messages.JSON
+                        fs.readFile(path, (err, data) => {
+                            if (err) {
+                                console.log('error')
+                            } else {
+                                // get the existing data from the JSON
+                                let obj = JSON.parse(data);
+                                let arr = obj.data;
 
-                            let idx = arr.findIndex(p => p.username === username);
+                                // find the index where the username is currently
+                                let idx = arr.findIndex(p => p.username === username);
 
-                            if(idx === -1){
-                                console.log('-1');
-                                let newUser =
-                                    {
-                                        username,
-                                        message
-                                    }
-                                arr.push(newUser);
-                            }
-                            else {
-                                console.log('idx was found: ' + idx);
+                                // if the username isnt in the file, the new user gets added to the file
+                                if (idx === -1) {
+                                    console.log('-1');
+                                    let newUser =
+                                        {
+                                            username,
+                                            message
+                                        }
+                                    arr.push(newUser);
+                                } // if the username is in the file
+                                else {
+                                    // find the specific index the data is
+                                    const userRecordToSearch = arr[idx];
 
-
-                                const userRecordToSearch = arr[idx];
-
-                                console.log('user record to search: v')
-                                console.log(userRecordToSearch);
-
-                                userRecordToSearch.message = message;
-
-                                console.log('arr is below v')
-                                console.log(arr);
-                            }
-
-                            fs.writeFileSync(path,JSON.stringify(obj), (err)=>
-                            {
-                                if (err)
-                                {
-                                    console.log("error")
+                                    // change the old message to the new one
+                                    userRecordToSearch.message = message;
                                 }
 
-                            })
+                                // write changes to file
+                                fs.writeFileSync(path, JSON.stringify(obj), (err) => {
+                                    if (err) {
+                                        console.log("error")
+                                    }
 
-                            res.send('ok');
-                        }
-                    })
-                } else {
-                    let messageDetails =
-                        {
-                            word: 'messages',
-                            data: msgDetails
-                        };
-                    fs.writeFileSync(path, JSON.stringify(messageDetails), (err) => {
-                        if (err) {
-                            console.log("error")
-                        }
-                    })
+                                })
+
+                                res.send('ok');
+                            }
+                        })
+                        // if file is not found, create it
+                    } else {
+                        let messageDetails =
+                            {
+                                word: 'messages',
+                                data: msgDetails
+                            };
+                        fs.writeFileSync(path, JSON.stringify(messageDetails), (err) => {
+                            if (err) {
+                                console.log("error")
+                            }
+                        })
+                    }
+
+                } else {// if user not in users.JSON return noMatch
+                    console.log('name not in file');
+                    res.send('noMatch')
                 }
-
             }
-            else{// if user not in users.JSON
-                console.log('name not in file');
-                res.send('noMatch')
-            }
+        })
 
-    }})
+    }
+});
 
     users.post('/message', jsonParser, (req, res) => {
-        console.log('in message in server');
 
         const path = './messages.JSON';
         const userPath = './userDB.JSON';
@@ -258,8 +273,6 @@ users.post('/message', jsonParser, (req, res) => {
         const username = req.body.name;
         const message = req.body.message;
 
-        console.log('user: ' + username);
-        console.log('message: ' + message);
 
         let msgDetails =
             {
@@ -276,8 +289,6 @@ users.post('/message', jsonParser, (req, res) => {
                 let obj = JSON.parse(usrFileData);
                 let arr = obj.details;
                 const nameData = arr.map(x => x.username);
-                console.log('namedata v')
-                console.log(nameData);
 
                 if(nameData.includes(username)) {
 
@@ -288,13 +299,10 @@ users.post('/message', jsonParser, (req, res) => {
                             } else {
                                 let obj = JSON.parse(data);
                                 let arr = obj.data;
-                                console.log('arr is below v')
-                                console.log(arr);
 
                                 let idx = arr.findIndex(p => p.username === username);
 
                                 if(idx === -1){
-                                    console.log('-1');
                                     let newUser =
                                         {
                                             username,
@@ -303,18 +311,10 @@ users.post('/message', jsonParser, (req, res) => {
                                     arr.push(newUser);
                                 }
                                 else {
-                                    console.log('idx was found: ' + idx);
-
 
                                     const userRecordToSearch = arr[idx];
 
-                                    console.log('user record to search: v')
-                                    console.log(userRecordToSearch);
-
                                     userRecordToSearch.message = message;
-
-                                    console.log('arr is below v')
-                                    console.log(arr);
                                 }
 
                                 fs.writeFileSync(path,JSON.stringify(obj), (err)=>
@@ -344,26 +344,22 @@ users.post('/message', jsonParser, (req, res) => {
 
                 }
                 else{// if user not in users.JSON
-                    console.log('name not in file');
                     res.send('noMatch')
                 }
 
             }})
 
 
-    });
+
 
 
 });
 
 
     users.post('/receive', jsonParser, (req, res) => {
-    console.log('in receive in server');
 
     const path = './messages.JSON';
     const username = req.body.name;
-
-    console.log('user: ' + username);
 
     const fs = require('fs');
 
@@ -373,8 +369,6 @@ users.post('/message', jsonParser, (req, res) => {
             } else {
                 let obj = JSON.parse(data);
                 let arr = obj.data;
-                console.log('arr is below v')
-                console.log(arr);
 
                 let idx = arr.findIndex(p => p.username === username);
 
@@ -392,65 +386,56 @@ users.post('/message', jsonParser, (req, res) => {
 
 
 users.post('/userMessage', jsonParser, (req, res) => {
-    console.log('in userMessage in server');
 
     let username = req.body.user;
     let message = req.body.data.message;
 
-    console.log('username: ' + username);
-    console.log('message: ' + message);
-
     let path = './messages.JSON';
 
-    const fs = require('fs');
-    fs.readFile(path, (err, data) => {
+    if(message.toString().trim() === ''){
+        res.send('no message')
+    }
 
-        if (err) {
-            console.log('error')
-        } else {
-            let obj = JSON.parse(data);
-            let arr = obj.data;
-            console.log('arr is below v')
-            console.log(arr);
+    else{
+        const fs = require('fs');
+        fs.readFile(path, (err, data) => {
 
-            let idx = arr.findIndex(p => p.username === username);
+            if (err) {
+                console.log('error')
+            } else {
+                let obj = JSON.parse(data);
+                let arr = obj.data;
 
-            if(idx === -1){
-                console.log('-1');
-                let newUser =
-                    {
-                        username,
-                        message
-                    }
-                arr.push(newUser);
-            }
-            else {
-                console.log('idx was found: ' + idx);
+                let idx = arr.findIndex(p => p.username === username);
 
+                if(idx === -1){
+                    console.log('-1');
+                    let newUser =
+                        {
+                            username,
+                            message
+                        }
+                    arr.push(newUser);
+                }
+                else {
+                    const userRecordToSearch = arr[idx];
 
-                const userRecordToSearch = arr[idx];
-
-                console.log('user record to search: v')
-                console.log(userRecordToSearch);
-
-                userRecordToSearch.message = message;
-
-                console.log('arr is below v')
-                console.log(arr);
-            }
-
-            fs.writeFileSync(path,JSON.stringify(obj), (err)=>
-            {
-                if (err)
-                {
-                    console.log("error")
+                    userRecordToSearch.message = message;
                 }
 
-            })
+                fs.writeFileSync(path,JSON.stringify(obj), (err)=>
+                {
+                    if (err)
+                    {
+                        console.log("error")
+                    }
 
-            res.send('ok');
-        }
-    })
+                })
+
+                res.send('ok');
+            }
+        })
+    }
 });
 
 users.post('/userReceive', jsonParser, (req, res) => {
@@ -458,8 +443,6 @@ users.post('/userReceive', jsonParser, (req, res) => {
     const path = './messages.JSON';
     const username = req.body.user;
 
-    console.log('user: ' + username);
-
     const fs = require('fs');
 
     fs.readFile(path, (err, data) => {
@@ -468,8 +451,6 @@ users.post('/userReceive', jsonParser, (req, res) => {
         } else {
             let obj = JSON.parse(data);
             let arr = obj.data;
-            console.log('arr is below v')
-            console.log(arr);
 
             let idx = arr.findIndex(p => p.username === username);
 
