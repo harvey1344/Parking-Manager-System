@@ -148,13 +148,16 @@ requestSpace.patch('/Admin', jsonParser, (req, res)=>
             }
             const carParkToEdit= db[index];
             index=spaceQuery-1;
-            if (index>carParkToEdit._spaces.length)
+            console.log(carParkToEdit._spaces.length)
+            if (spaceQuery>carParkToEdit._spaces.length)
             {
                 res.status(404).send('NO');
+                console.log("Space doesnt exist")
                 return
             }
             space= carParkToEdit._spaces[index];
-            space._spaceID= req.body.spaceID;
+            console.log(space)
+            space._spaceID= spaceQuery;
             if (type==="add")
             {
             space._isBooked= "Admin";
