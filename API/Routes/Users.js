@@ -168,7 +168,10 @@ users.post('/message', jsonParser, (req, res) => {
     const userPath = './userDB.JSON';
     // save the name of the user sending the message + the message itself into variables
     const username = req.body.name;
-    const message = req.body.message;
+    let message = req.body.message;
+
+    let date = new Date();
+    message = '<From Admin: '+ date.getHours() + ':' + date.getMinutes() + '> ' + message;
 
     if(message.toString().trim() === ''){
         res.send('no message')
@@ -227,6 +230,7 @@ users.post('/message', jsonParser, (req, res) => {
                                     const userRecordToSearch = arr[idx];
 
                                     // change the old message to the new one
+                                    let date = new Date()
                                     userRecordToSearch.message = message;
                                 }
 
@@ -390,6 +394,9 @@ users.post('/userMessage', jsonParser, (req, res) => {
     let username = req.body.user;
     let message = req.body.data.message;
 
+    let date = new Date();
+    message = '<From ' + username + ':' + date.getHours() + ':' + date.getMinutes() + '> ' + message;
+
     let path = './messages.JSON';
 
     if(message.toString().trim() === ''){
@@ -420,6 +427,7 @@ users.post('/userMessage', jsonParser, (req, res) => {
                 else {
                     const userRecordToSearch = arr[idx];
 
+                    let date = new Date()
                     userRecordToSearch.message = message;
                 }
 
