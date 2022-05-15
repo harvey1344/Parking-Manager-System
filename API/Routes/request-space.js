@@ -136,6 +136,7 @@ requestSpace.patch('/Admin', jsonParser, (req, res)=>
         if (err){console.log(err)}
         else
         {
+            console.log('now here')
             let obj= JSON.parse(data);
             let db = obj.carParks;
             //console.log(db);

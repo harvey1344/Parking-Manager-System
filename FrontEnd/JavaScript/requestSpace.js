@@ -114,38 +114,44 @@ const adminReserve= ()=>
 {
     let carpark= document.getElementById('request').elements[0].value;
     let space= document.getElementById('request').elements[1].value;
-    
 
-    fetch("http://localhost:5000/space/Admin", {
-     
-    // Adding method type
-    method: "PATCH",
-    // Adding body or contents to send
-    body: JSON.stringify({
-        carpark: carpark,
-        spaceID: space,
-        type: 'add'
-    }),
-    // Adding headers to the request
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-    
-})
- .then(function(res){
-   if (res.ok)
-   {
-     console.log(res);
-     spaceSuccess();
-   }
-   else if (res.status=404)
-   {
-     alert("Either carpark or space couldnt be located\nPlease check your query")
-   }
-  
- })
+    if(carpark.toString().trim() === '' || space.toString().trim() === ''){
+        messageFail('Entry cannot be left blank!');
+    } else {
 
-.catch(function(res){ console.log(res) })
+        fetch("http://localhost:5000/space/Admin", {
+
+            // Adding method type
+            method: "PATCH",
+            // Adding body or contents to send
+            body: JSON.stringify({
+                carpark: carpark,
+                spaceID: space,
+                type: 'add'
+            }),
+            // Adding headers to the request
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+
+        })
+            .then(function(res){
+                if (res.ok)
+                {
+                    console.log(res);
+                    spaceSuccess();
+                }
+                else if (res.status=404)
+                {
+                    messageFail('Car Park or space could not be located. Please check your query');
+                }
+
+            })
+
+            .catch(function(res){ console.log(res) })}
+
+
+
 
 }
 

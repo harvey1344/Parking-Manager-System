@@ -30,6 +30,10 @@ function messageFail(text)
 	resetElement.parentNode.insertBefore(alertPara, resetElement.nextSibling);
 	resetButton.removeEventListener('click', onResetClick);
 }
+
+function resetForm(){
+	location.reload();
+}
 function accountExists()
 {
 	let alertPara = document.createElement('p');

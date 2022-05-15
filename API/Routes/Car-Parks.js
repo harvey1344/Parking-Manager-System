@@ -21,7 +21,7 @@ const classes= require('./Classes');
 carParks.post('/add', jsonParser, (req, res)=>
 {
     const path='./carPark.JSON';
-    if (req.body.name===''||req.body.blockLocation===''||req.maxCapacity==='')
+    if (req.body.name.toString().trim() ===''||req.body.blockLocation.toString().trim() ===''||req.body.maxCapacity ==='' || req.body.basePrice === '')
     {
         res.send('cpNoData');
         return;
