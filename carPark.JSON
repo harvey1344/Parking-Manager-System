@@ -1,1 +1,1 @@
-{"word":"List-of-car-parks","carParks":[{"_name":"test1","_blockLocation":"1 uni road","_maxCapacity":"2","_basePrice":"2","_spaces":[{"_spaceID":"1","_occupied":false,"_isBooked":false},{"_spaceID":"2","_occupied":false,"_isBooked":false}]}]}
+{"word":"List-of-car-parks","carParks":[{"_name":"test1","_blockLocation":"1 uni road","_maxCapacity":"2","_basePrice":"2","_spaces":[{"_spaceID":"1","_occupied":false,"_isBooked":false},{"_spaceID":"2","_occupied":"Admin","_isBooked":"Admin"}]}]}
