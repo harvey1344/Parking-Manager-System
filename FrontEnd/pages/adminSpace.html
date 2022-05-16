@@ -16,7 +16,7 @@
     <body>
     <nav>
         <ul>
-            <li><a href="/Home">Home</a></li>
+            <li><a href="/Admin">Home</a></li>
             <li><a href="/Space/request">Request Space</a></li>
             <li><a href="MESSAGES TO FILL LATER UPON CREATION">Messages</a></li>
             <li><a href="/">Logout</a></li>
@@ -40,13 +40,15 @@
             </div>
 
             <input type= "button" class="button" value="Submit Request" onclick="adminRequest();"> <input type="reset" class="button" value="Reset Form">
+            <button class = "button" id="refreshFunctionButton" onclick="refreshCarParks2()">Car Park Availability</button><br><br>
+            <a href="/Admin"> Back </a><br>
     </form>
     </main>
         <div id = "textFill"></div>
 
 
-        <button id="refreshFunctionButton" onclick="refreshCarParks2()">Car Park Availability</button><br>
-        <a href="/Admin"> Back </a>
+
+
     </body>
 
 

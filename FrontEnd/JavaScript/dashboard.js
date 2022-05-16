@@ -35,12 +35,12 @@ function getCookie(name) {
             }
           case 2:
             {
-              alert("You have alreayd arrived")
+              alert("You have already arrived")
               break;
             }
           default:
           {
-            alert("An unexpected error occuried")
+            alert("An unexpected error occurred")
           }
           
         }
@@ -141,7 +141,7 @@ const submitDepart= ()=>
           }
         default:
         {
-          alert("An unexpected error occuried")
+          alert("An unexpected error occurred")
         }
         
       }
