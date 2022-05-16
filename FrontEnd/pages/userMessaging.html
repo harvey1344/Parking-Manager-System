@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script src= "messaging.js" defer></script>
+    <script src= "wp.js" defer></script>
+
+    <title>Messaging - Message an admin</title>
+
+</head>
+
+<body>
+<main>
+
+    <div id="titleBox2"></div>
+    <div class="myContainer">
+
+        <form id = "msg" onsubmit="userSaveMessage()">
+
+            <h3>Messaging</h3>
+            <p>Required information is marked with an asterisk (*)</p><br>
+            <div class="cool">
+
+                <label id = "changing" for="message">Message to send to admin:*
+                    <textarea placeholder="Enter your message here!" name = "message" id = "message"> </textarea>
+                </label><br>
+            </div>
+
+            <input type= "button" class="button" value="Send Message" onclick="userSaveMessage()">
+            <input type= "button" class="button" value="Receive Message" onclick="userReceiveMessage()">
+            <input type="reset" class= "button" value="Reset Form" onclick="resetForm()"><br><br>
+
+
+        </form><br>
+    </div>
+    <div id = "textFill"></div>
+    <a class="hyper" href="/Home"> Return to Dashboard</a><br>
+</main>
+</body>
+</html>

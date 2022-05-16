@@ -32,4 +32,12 @@ js.get('/Space/wp.js',function(req, res) {
     res.sendFile('./JavaScript/wp.js', { root: __dirname })
 });
 
+js.get('/Messaging.js',function(req, res) {
+    res.sendFile('./JavaScript/messaging.js', { root: __dirname })
+});
+
+js.get('/userMessaging.js',function(req, res) {
+    res.sendFile('./JavaScript/userMessaging.js', { root: __dirname })
+});
+
 module.exports=js;

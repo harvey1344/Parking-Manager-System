@@ -60,6 +60,11 @@ pages.get('/Thanks', function(req, res) {
 pages.get('/Map', function(req, res) {
     res.sendFile('./Pages/UEAMap.png', { root: __dirname })
 });
-
+pages.get('/Messaging', function(req, res) {
+    res.sendFile('./Pages/adminMessage.html', { root: __dirname })
+});
+pages.get('/userMessaging', function(req, res) {
+    res.sendFile('./Pages/userMessaging.html', { root: __dirname })
+});
 
 module.exports=pages;

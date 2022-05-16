@@ -1,17 +1,29 @@
-console.log(document.cookie)
+/*
+ Javascript file containing functions for user home page
+ Heavily reliant on cookies pushed from login page 
+*/
 
-function getCookie(name) {
+//helper function to get cookie 
+function getCookie(name) 
+{
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
 
-  console.log(getCookie('username'));
+  
+//update page to incluede Welcome username
+let userElement= document.getElementById('titleBox');
+userElement.innerHTML= `<h1>Welcome ${getCookie('username')}</h1>`
 
-  let userElement= document.getElementById('titleBox');
-  userElement.innerHTML= `<h1>Welcome ${getCookie('username')}</h1>`
 
-  const submitArrival = ()=>
+
+/*
+ Fucntion to send relevant data to server to update the database when a user submits they have arrived
+ Uses fetch() to get database and pass into function to find the space
+ Returns a code to deal with error handling 
+*/
+const submitArrival = ()=>
 {
     //Search Car Park for users space
     fetch('/CDB')
@@ -43,19 +55,17 @@ function getCookie(name) {
             alert("An unexpected error occurred")
           }
           
-        }
-
-       
-        
-        
-
-
-        
-        
+        } 
       });
 
 }
 
+/*
+ Function performs a brute force search on database to check space exists
+ Returns code 2 if space is have already arrived
+ Returns code 0 if another error occurs
+ Or if success wiht run handler
+*/
 const searchForSpace =(db, name)=>
 {
   for (let i=0 ;i< db.length; i++)
@@ -80,6 +90,8 @@ const searchForSpace =(db, name)=>
         return 0;
 }
 
+//fucntion to send request to update space to occupied or deoccupied 
+//if success takes user to new page
 const spaceFoundHandler= (space, url)=>
 {
   console.log(space);
@@ -112,9 +124,15 @@ const spaceFoundHandler= (space, url)=>
 })
 }
 
+/*
+ Fucntion to send relevant data to server to update the database when a user submits they have departed
+ Uses fetch() to get database and pass into function to find the space
+ Returns a code to deal with error handling 
+*/
+
 const submitDepart= ()=>
 {
-  //Search Car Park for users space
+  
   fetch('/CDB')
   .then(response => response.json())
   .then(data => 
@@ -144,19 +162,16 @@ const submitDepart= ()=>
           alert("An unexpected error occurred")
         }
         
-      }
-
-     
-      
-      
-
-
-      
-      
+      }     
     });
-
 }
 
+/*
+ Function performs a brute force search on database to check space exists and is occupied by user
+ Returns code 2 if space is have already arrived
+ Returns code 0 if another error occurs
+ Or if success will run handler
+*/
 const searchForSpaceB =(db, name)=>
 {
   for (let i=0 ;i< db.length; i++)

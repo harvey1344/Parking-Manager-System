@@ -1,14 +1,28 @@
+/*
+ This file contains functions for the CRUD operations of the carpark database (carPark.JSON)
+ using the defualt route of (/Car-Parks)
+*/
+
 const carParks = require('express').Router();
 const bodyParser = require('body-parser');
+const { getgroups } = require('process');
 const jsonParser = bodyParser.json();
 const classes= require('./Classes');
 
 
-//add
+/*
+ Function to add a carpark to our JSON database
+ Attributes collected by the request. Database read and convetted to object, 
+ new carpark added onto the existed object and then rewrittren.
+ Note- if carpark name exists in database then send error back to client
+ Note- if no carpakr file found, then new database is created
+ Note- if any field in request empty, error sent back.
+
+*/
 carParks.post('/add', jsonParser, (req, res)=>
 {
     const path='./carPark.JSON';
-    if (req.body.name===''||req.body.blockLocation===''||req.maxCapacity==='')
+    if (req.body.name.toString().trim() ===''||req.body.blockLocation.toString().trim() ===''||req.body.maxCapacity ==='' || req.body.basePrice === '')
     {
         res.send('cpNoData');
         return;
@@ -78,11 +92,17 @@ carParks.post('/add', jsonParser, (req, res)=>
 
 })
 
+/*
+ Function to remove car park from the database.
+ Reads car park name from the request, maps each carpark name to new array and gets index
+ Note- -1 returned from .includes() indicates name doesnt exist send error to client
+ Use Arrays.splice to take our data from arryay then rewrite file
+*/
+
 carParks.post('/remove', jsonParser, (req, res)=>
 {
     const fs = require('fs');
     const path='./carPark.JSON';
-
     const parkName = req.body.name;
 
     if (fs.existsSync(path))
@@ -90,44 +110,44 @@ carParks.post('/remove', jsonParser, (req, res)=>
         fs.readFile(path, (err, data)=>
         {
             if (err){console.log('error')}
-            else{
+            else
+            {
                 let obj= JSON.parse(data);
                 let arr = obj.carParks;
                 const nameData= arr.map(x => x._name);
 
-                // if it includes the park name we want to find
-                if ((nameData.includes(parkName))) {
-
-                    // find the idx of the thing to be removed in namedata
+                if ((nameData.includes(parkName))) 
+                {
                     let carParkIndex = nameData.indexOf(parkName);
-                    //console.log('index of thing to be removed: ' + carParkIndex);
-                    // remove from that corresponding idx
                     arr.splice(carParkIndex,1);
 
-
-                    fs.writeFileSync(path, JSON.stringify(obj), (err) => {
-                        if (err) {
-                            console.log("error")
-                            return;
-                        }
+                    fs.writeFileSync(path, JSON.stringify(obj), (err) => 
+                    {
+                        if (err) {console.log("error")
+                        return;}
 
                     })
                     console.log(`${parkName._name} removed from database`)
                     res.send('ok');
                 }
-                else {
+                else
+                {
                     console.log('does not contain parkName entered')
                     res.send('badData')
                 }
             }
         })
     }
-    else
-    {
-        console.log('No car park file exists')
-    }
+    else{console.log('No car park file exists')}
 
 })
+
+
+/*
+
+ Function to calculate a set of car park statistics used to generate a car park overview
+
+*/
 
 carParks.post('/display', jsonParser, (req, res)=> {
 {
@@ -151,19 +171,6 @@ carParks.post('/display', jsonParser, (req, res)=> {
                 const priceData= arr.map(x => x._basePrice);
                 const spaceData= arr.map(x => x._spaces);
 
-                // test code - please do not remove in case I need to look at this again later
-
-                /*console.log("spacedata.len: " + spaceData.length)
-                console.log("spacedata[0][0]: " + spaceData[0][0]._isBooked);
-                console.log("spacedata[0]: ");
-                console.log(spaceData[0]);
-                console.log("spacedata[0].len: " + spaceData[0].length)
-                console.log("spacedata[1]: ");
-                console.log(spaceData[1]);
-                console.log("spacedata[2]: ");
-                console.log(spaceData[2]);
-                console.log("spacedata[0].len: " + spaceData[2].length)*/
-
 
                 // appends each car parks' unbooked spaces to an array.
                 let numArray = [];
@@ -172,25 +179,22 @@ carParks.post('/display', jsonParser, (req, res)=> {
                     let count = 0;
                     for(let j = 0; j < spaceData[i].length; j++){
                         if(spaceData[i][j]._isBooked === false){
-                            //console.log('i: ' + i);
-                            //console.log('j: ' + j);
-                            //console.log('false');
+                            // counts unbooked spaces
                             count ++;
-                            //console.log('count: ' + count);
                         }
                     }
                     numArray.push(count);
                 }
-                //console.log('numArray: ' + numArray);
 
 
                 let carParkID = [];
                 for(let i = 0; i < spaceData.length; i++){
-                    //console.log('i: ' + i);
+
                     let str = '';
                     let count = 0;
                     for(let j = 0; j < spaceData[i].length; j++){
                         if(spaceData[i][j]._isBooked === false){
+                            // creates a list of unbooked space IDs
                             str += spaceData[i][j]._spaceID + ', ';
                             count ++
                         }
@@ -218,6 +222,14 @@ carParks.post('/display', jsonParser, (req, res)=> {
     }
 }})
 
+
+/*
+
+
+ Calculates a percentage of car parks utilisation
+
+*/
+
 carParks.post('/graph', jsonParser, (req, res)=> {
     {
         let dataArray = [];
@@ -244,7 +256,6 @@ carParks.post('/graph', jsonParser, (req, res)=> {
                         count ++;
                     }
                 }
-                // might be problematic
                 // Percentage of Car Park utilisation
                 spaceArray.push(((capacity[i] - count)/capacity[i]) * 100);
             }

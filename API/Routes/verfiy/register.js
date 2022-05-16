@@ -8,7 +8,7 @@ register.post('/', jsonParser, (req, res)=>
     const fs= require('fs');
     const path= './userDB.JSON';
 
-    if (req.body.username===''||req.body.password==='')
+    if (req.body.username.trim()===''||req.body.password.trim()==='')
     {
         res.send('noData');
         return;
