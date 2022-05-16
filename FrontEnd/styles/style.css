@@ -18,6 +18,19 @@ body {
 	background: lightgrey;
 }
 
+#alertButton{
+	margin: auto;
+	text-align: center;
+}
+
+
+h1{
+	margin: auto;
+	text-align: center;
+	color: black;
+font-family: Helvetica;
+}
+
 h3
 {
 	font-size: 35px;
@@ -128,7 +141,6 @@ textarea{
 	height: 20%;
 	margin-bottom: 1px;
 	padding: 10px;
-	#margin-right: 10%;
 	display: inline-block;
 	flex-wrap: wrap;
 	font-weight: bold;
@@ -136,7 +148,6 @@ textarea{
 	border-color: black;
 	border-width: thin;
 	background: #ffffff;
-	#box-shadow: 0 0 10px;
 
 	color: black;
 }
@@ -146,14 +157,12 @@ textarea{
 	height: 48%;
 	margin-bottom: 1px;
 	padding: 10px;
-	#margin-right: 10%;
 	display: inline-block;
 	flex-wrap: wrap;
 	border-style: solid;
 	border-color: black;
 	border-width: thin;
 	background: #ffffff;
-	#box-shadow: 0 0 10px;
 
 	color: black;
 }
@@ -163,7 +172,6 @@ textarea{
 	height: 15%;
 	margin-bottom: 1px;
 	padding: 10px;
-	#margin-right: 10%;
 	display: inline-block;
 	flex-wrap: wrap;
 	font-weight: bold;
@@ -171,7 +179,7 @@ textarea{
 	border-color: black;
 	border-width: thin;
 	background: #ffffff;
-	#box-shadow: 0 0 10px;
+
 
 	color: black;
 }
@@ -181,14 +189,13 @@ textarea{
 	height: 100%;
 	margin-bottom: 1px;
 	padding: 10px;
-	#margin-right: 10%;
 	display: inline-block;
 	flex-wrap: wrap;
 	border-style: solid;
 	border-color: black;
 	border-width: thin;
 	background: #ffffff;
-	#box-shadow: 0 0 10px;
+
 
 	color: black;
 }

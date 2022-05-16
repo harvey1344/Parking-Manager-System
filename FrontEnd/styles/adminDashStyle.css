@@ -6,11 +6,12 @@ header
 nav
 {
     text-align: center;
-    background-color: lightgrey;
+    background-color: whitesmoke;
     padding: 5px;
     border-style: solid;
     border-color: black;
 }
+
 nav ul
 {
     margin: 0;
@@ -192,7 +193,6 @@ body { /*sets up the main body element on each page to have a colour of white
     height: 20%;
     margin-bottom: 1px;
     padding: 10px;
-    #margin-right: 10%;
     display: inline-block;
     flex-wrap: wrap;
     font-weight: bold;
@@ -200,7 +200,6 @@ body { /*sets up the main body element on each page to have a colour of white
     border-color: black;
     border-width: thin;
     background: #ffffff;
-    #box-shadow: 0 0 10px;
 
     color: black;
 }
@@ -210,14 +209,12 @@ body { /*sets up the main body element on each page to have a colour of white
     height: 48%;
     margin-bottom: 1px;
     padding: 10px;
-    #margin-right: 10%;
     display: inline-block;
     flex-wrap: wrap;
     border-style: solid;
     border-color: black;
     border-width: thin;
     background: #ffffff;
-    #box-shadow: 0 0 10px;
 
     color: black;
 }
@@ -227,7 +224,6 @@ body { /*sets up the main body element on each page to have a colour of white
      height: 15%;
      margin-bottom: 1px;
      padding: 10px;
-     #margin-right: 10%;
      display: inline-block;
      flex-wrap: wrap;
      font-weight: bold;
@@ -235,8 +231,6 @@ body { /*sets up the main body element on each page to have a colour of white
      border-color: black;
      border-width: thin;
      background: #ffffff;
-     #box-shadow: 0 0 10px;
-
      color: black;
  }
 
@@ -245,14 +239,12 @@ body { /*sets up the main body element on each page to have a colour of white
     height: 100%;
     margin-bottom: 1px;
     padding: 10px;
-    #margin-right: 10%;
     display: inline-block;
     flex-wrap: wrap;
     border-style: solid;
     border-color: black;
     border-width: thin;
     background: #ffffff;
-    #box-shadow: 0 0 10px;
 
     color: black;
 }
