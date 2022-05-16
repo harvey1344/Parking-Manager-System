@@ -807,6 +807,34 @@ function saveCarPark()
 	// calls post method with the path and the form data
 	post(path,data)
 }
+function GPS(){
+mapboxgl.accessToken = "pk.eyJ1IjoiZXZhbmdlbG9zMTIzIiwiYSI6ImNsMzdiaWRoMzF2ZjkzY3J4cjg1Z3B6anYifQ.ziDXAYTHXyh2zYuLqdpevA";
+navigator.geolocation.getCurrentPosition(
+  (pos) => {
+    let map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [pos.coords.longitude, pos.coords.latitude],
+      zoom: 13
+    });
+    let marker = new mapboxgl.Marker()
+      .setLngLat([pos.coords.longitude, pos.coords.latitude])
+      .addTo(map);
+
+	let marker2 = new mapboxgl.Marker()
+      .setLngLat([1.239199, 52.62647])
+      .addTo(map);
+  },
+  	
+  (err) => { console.error(err); },
+ 
+  {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  }
+);
+}
 
 // reset button for the form
 function onResetClick()																		// function creates a red warning paragraph on screen to let user know they have reset the form
